@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">Laundress</string>
+    <string name="radiomale">Male</string>
+    <string name="radiofemale">Female</string>
+
+    <string name="servicetype_pickupdeliv">Pick up and Delivery</string>
+    <string name="servicetype_homeservice">Home Service</string>
+
+    <string name="chb_servoff_laund">Laundry</string>
+    <string name="chb_servoff_laundry">Laundry and Drying</string>
+
+    <string name="chb_extra_iron">Ironing</string>
+    <string name="chb_extra_fold">Folding</string>
+
+    <string-array name="civilstatus">
+        <item>Single</item>
+        <item>Married</item>
+        <item>Divorced</item>
+    </string-array>
+    <string name="title_activity_client_homepage">ClientHomepage</string>
+    <string name="mylaundry">My Laundries</string>
+    <string name="post">Posts</string>
+    <string name="findlaundryshop">Laundry Shop</string>
+    <string name="findhandwasher">Laundry Handwasher</string>
+    <string-array name="filterby">
+        <item>Nearest Location</item>
+        <item>Cheapest Laundry Service</item>
+        <item>Recommended Laundry Shop</item>
+    </string-array>
+    <string-array name="filterbyh">
+        <item>Nearest Location</item>
+        <item>Cheapest Laundry Handwasher</item>
+        <item>Recommended Laundry Handwasher</item>
+    </string-array>
+    <string name="title_activity_laundry_shop_location">Map</string>
+    <string name="mylaundryh">My Laundry</string>
+    <string name="bookings">Bookings</string>
+    <string name="posts">Posts</string>
+    <!--<string name="title_activity_sample">Sample</string>-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!--<string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>-->
+    <!--gridview-->
+    <!--<string name = "tshirt_and_polo">T-shirt and Polo</string>-->
+    <!--<string name = "sleeveless" >Sleeveless</string>-->
+    <!--<string name = "long_sleeve" >Long Sleeve</string>-->
+    <!--<string name = "pants" >Pants</string>-->
+    <!--<string name = "shorts" >Shorts</string>-->
+    <!--<string name = "skirt" >Skirt</string>-->
+    <!--<string name = "dress" >Dress</string>-->
+    <!--<string name = "blankets_curtains_etc" >Blankets, Curtains, etc.</string>-->
+    <!--<string name = "socks_gloves_etc" >Socks, Gloves, etc.</string>-->
+    <!--<string name = "towels" >Towels</string>-->
+    <!--<string name = "others" >Others</string>-->
+    <!--<string name = "done" >Done</string>-->
+
+</resources>
