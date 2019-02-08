@@ -94,6 +94,10 @@
             android:name=".ShopRate"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ShopConfirmBooking"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
 
 

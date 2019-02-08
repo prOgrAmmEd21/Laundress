@@ -30,8 +30,7 @@ public class Login extends AppCompatActivity {
     private EditText email, password;
     private Button login;
     private ProgressBar load;
-    //private static String URL_LOGIN = "http://192.168.1.101/laundress/login.php";
-    private static String URL_LOGIN = "http://192.168.124.83/laundress/login.php";
+    private static String URL_LOGIN = "http://192.168.137.1/laundress/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,6 @@ public class Login extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("login");
-                            //Toast.makeText(Login.this, "sud" + success, Toast.LENGTH_SHORT).show();
                             if (success.equals("1")) {
 
                                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -82,7 +80,7 @@ public class Login extends AppCompatActivity {
                                     String user = object.getString("user").trim();
                                     String name = object.getString("name").trim();
                                     //String email = object.getString("email").trim();
-                                    Toast.makeText(Login.this, "name " + name, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, "Successfully Logged In ", Toast.LENGTH_SHORT).show();
                                     load.setVisibility(View.GONE);
                                     login.setVisibility(View.VISIBLE);
                                     if(user.equals("laundryclient")) {

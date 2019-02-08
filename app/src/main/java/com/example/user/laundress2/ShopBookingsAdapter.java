@@ -17,7 +17,7 @@ import static android.app.PendingIntent.getActivity;
 
 public class ShopBookingsAdapter extends BaseAdapter {
     Context context;
-    ItemHolder itemHolder;
+    ShopBookingsAdapter.ItemHolder itemHolder;
     ArrayList<ShopBookingsList> shopBookingsLists;
 
     public ShopBookingsAdapter(Context context, ArrayList<ShopBookingsList> shopBookingsLists) {
@@ -45,16 +45,16 @@ public class ShopBookingsAdapter extends BaseAdapter {
             LayoutInflater layoutInflater = ((Activity) context).getLayoutInflater();
             itemHolder = new ItemHolder();
             convertView = layoutInflater.inflate(R.layout.shop_bookings_adpater, parent, false);
-            itemHolder.name = (TextView) convertView.findViewById(R.id.name);
-            itemHolder.reqservice1 = (TextView) convertView.findViewById(R.id.tv_reqservice1);
-            itemHolder.reqservice2 = (TextView) convertView.findViewById(R.id.tv_reqservice2);
-            itemHolder.reqservice3 = (TextView) convertView.findViewById(R.id.tv_reqservice3);
-            itemHolder.extservice1 = (TextView) convertView.findViewById(R.id.tv_extservice1);
-            itemHolder.extservice2 = (TextView) convertView.findViewById(R.id.tv_extservice2);
-            itemHolder.extservice3 = (TextView) convertView.findViewById(R.id.tv_extservice3);
-            itemHolder.serviceType = (TextView) convertView.findViewById(R.id.tv_servicetype);
-            itemHolder.weight = (TextView) convertView.findViewById(R.id.tv_weight);
-            itemHolder.dateTime = (TextView) convertView.findViewById(R.id.tv_datetime);
+            itemHolder.name = convertView.findViewById(R.id.name);
+            itemHolder.reqservice1 = convertView.findViewById(R.id.tv_reqservice1);
+            itemHolder.reqservice2 = convertView.findViewById(R.id.tv_reqservice2);
+            itemHolder.reqservice3 = convertView.findViewById(R.id.tv_reqservice3);
+            itemHolder.extservice1 = convertView.findViewById(R.id.tv_extservice1);
+            itemHolder.extservice2 = convertView.findViewById(R.id.tv_extservice2);
+            itemHolder.extservice3 = convertView.findViewById(R.id.tv_extservice3);
+            itemHolder.serviceType = convertView.findViewById(R.id.tv_servicetype);
+            itemHolder.weight = convertView.findViewById(R.id.tv_weight);
+            itemHolder.dateTime = convertView.findViewById(R.id.tv_datetime);
             itemHolder.viewLaundry = convertView.findViewById(R.id.btn_viewlaundry);
             itemHolder.confirm = convertView.findViewById(R.id.btn_confirm);
 
@@ -70,10 +70,12 @@ public class ShopBookingsAdapter extends BaseAdapter {
             itemHolder.confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, ShopBookings.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("clientID", shopBookingsList.getId());
-                    intent.putExtra("transNo", shopBookingsList.getTransNo());
-                    intent.putExtra("booking", "confirm");
+
+                    Bundle extras = new Bundle();
+                    extras.putInt("clientID", shopBookingsList.getId());
+                    extras.putInt("trans_No", shopBookingsList.getTransNo());
+                    Intent intent = new Intent(context, ShopConfirmBooking.class);
+                    intent.putExtras(extras);
                     context.startActivity(intent);
                 }
             });

@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShopBookings extends Fragment {
-    ArrayList<String> arrID = new ArrayList<>();
+    ArrayList<Integer> arrID = new ArrayList<>();
     ArrayList<String> arrName = new ArrayList<>();
     ArrayList<String> arrReqService = new ArrayList<>();
     ArrayList<String> arrExtService = new ArrayList<>();
@@ -36,10 +36,10 @@ public class ShopBookings extends Fragment {
     ArrayList<String> arrWeight = new ArrayList<>();
     ArrayList<String> arrDateTime = new ArrayList<>();
     ArrayList<String> arrStatus = new ArrayList<>();
-    ArrayList<String> arrTransNo = new ArrayList<>();
+    ArrayList<Integer> arrTransNo = new ArrayList<>();
     private Context context;
     ListView listView;
-    private static final String URL_ALL = "http://192.168.124.83/laundress/shop_bookings.php";
+    private static final String URL_ALL = "http://192.168.137.1/laundress/shop_bookings.php";
     ArrayList<ShopBookingsList> shopBookingsLists = new ArrayList<>();
     ShopBookingsAdapter shopBookingsAdapter;
     private RequestQueue requestQueue;
@@ -78,15 +78,7 @@ public class ShopBookings extends Fragment {
         shop_name = getArguments().getString("shop_name");
         client_id = getArguments().getInt("client_id");
         booking = getArguments().getString("booking");
-        Toast.makeText(getActivity(), "id " +shop_id, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity(), "name " +shop_name, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity(), "client_id  " +client_id, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity(), "booking  " +booking, Toast.LENGTH_SHORT).show();
         bookings(shop_id, shop_name);
-        if(booking=="confirm")
-        {
-            confirm(shop_id, client_id);
-        }
 
         try {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ALL,
@@ -118,13 +110,11 @@ public class ShopBookings extends Fragment {
         try {
             JSONObject jsonObject = new JSONObject(response);
             String success = jsonObject.getString("success");
-            //JSONArray jArray = json.getJSONArray("platform");
-            //JSONArray jsonArray = new JSONArray(response);
             JSONArray jsonArray = jsonObject.getJSONArray("shopBookings");
             if (success.equals("1")){
                 for (int i =0;i<jsonArray.length();i++)
                 {
-                    String id = jsonArray.getJSONObject(i).getString("clientID");
+                    int id = jsonArray.getJSONObject(i).getInt("clientID");
                     String name = jsonArray.getJSONObject(i).getString("clientName");
                     String transServ = jsonArray.getJSONObject(i).getString("transService");
                     String transExt = jsonArray.getJSONObject(i).getString("transExtra");
@@ -132,7 +122,7 @@ public class ShopBookings extends Fragment {
                     String transWeight = jsonArray.getJSONObject(i).getString("transWeight");
                     String transDateTime = jsonArray.getJSONObject(i).getString("transDateTime");
                     String transStat = jsonArray.getJSONObject(i).getString("transStat");
-                    String transNo = jsonArray.getJSONObject(i).getString("transNo");
+                    int transNo = jsonArray.getJSONObject(i).getInt("transNo");
                     arrID.add(id);
                     arrName.add(name);
                     arrReqService.add(transServ);
@@ -146,6 +136,7 @@ public class ShopBookings extends Fragment {
                     shopBookingsList.setTransNo(transNo);
                     shopBookingsList.setId(id);
                     shopBookingsList.setName(name);
+                    shopBookingsList.setTransNo(transNo);
                     shopBookingsList.setTransServ1(transServ);
                     shopBookingsList.setTransServ2(transServ);
                     shopBookingsList.setTransServ3(transServ);
@@ -179,7 +170,7 @@ public class ShopBookings extends Fragment {
                             if (success.equals("1")){
                                 for (int i =0;i<jsonArray.length();i++)
                                 {
-                                    String id = jsonArray.getJSONObject(i).getString("clientID");
+                                    int id = jsonArray.getJSONObject(i).getInt("clientID");
                                     String name = jsonArray.getJSONObject(i).getString("clientName");
                                     String transServ = jsonArray.getJSONObject(i).getString("transService");
                                     String transExt = jsonArray.getJSONObject(i).getString("transExtra");
@@ -187,7 +178,7 @@ public class ShopBookings extends Fragment {
                                     String transWeight = jsonArray.getJSONObject(i).getString("transWeight");
                                     String transDateTime = jsonArray.getJSONObject(i).getString("transDateTime");
                                     String transStat = jsonArray.getJSONObject(i).getString("transStat");
-                                    String transNo = jsonArray.getJSONObject(i).getString("transNo");
+                                    int transNo = jsonArray.getJSONObject(i).getInt("transNo");
                                     arrID.add(id);
                                     arrName.add(name);
                                     arrReqService.add(transServ);
@@ -240,84 +231,5 @@ public class ShopBookings extends Fragment {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
-    }
-
-    private void confirm(final int shop_id, final int client_id){
-
-        //final Context context = this;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ALL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("shopMyLaundry");
-                            if (success.equals("1")){
-                                for (int i =0;i<jsonArray.length();i++)
-                                {
-                                    String id = jsonArray.getJSONObject(i).getString("clientID");
-                                    String name = jsonArray.getJSONObject(i).getString("clientName");
-                                    String transServ = jsonArray.getJSONObject(i).getString("transService");
-                                    String transExt = jsonArray.getJSONObject(i).getString("transExtra");
-                                    String transServType = jsonArray.getJSONObject(i).getString("transServType");
-                                    String transWeight = jsonArray.getJSONObject(i).getString("transWeight");
-                                    String transDateTime = jsonArray.getJSONObject(i).getString("transDateTime");
-                                    String transStat = jsonArray.getJSONObject(i).getString("transStat");
-                                    String transNo = jsonArray.getJSONObject(i).getString("transNo");
-                                    arrID.add(id);
-                                    arrName.add(name);
-                                    arrReqService.add(transServ);
-                                    arrExtService.add(transExt);
-                                    arrServiceType.add(transServType);
-                                    arrWeight.add(transWeight);
-                                    arrDateTime.add(transDateTime);
-                                    arrStatus.add(transStat);
-                                    arrTransNo.add(transNo);
-                                    ShopBookingsList shopBookingsList = new ShopBookingsList();
-                                    shopBookingsList.setTransNo(transNo);
-                                    shopBookingsList.setId(id);
-                                    shopBookingsList.setName(name);
-                                    shopBookingsList.setTransServ1(transServ);
-                                    shopBookingsList.setTransServ2(transServ);
-                                    shopBookingsList.setTransServ3(transServ);
-                                    shopBookingsList.setTransExtra1(transExt);
-                                    shopBookingsList.setTransExtra2(transExt);
-                                    shopBookingsList.setTransExtra3(transExt);
-                                    shopBookingsList.setTransServType(transServType);
-                                    shopBookingsList.setTransWeight(transWeight);
-                                    shopBookingsList.setTransDateTime(transDateTime);
-                                    shopBookingsList.setTransStat(transStat);
-                                    shopBookingsLists.add(shopBookingsList);
-                                }
-                                shopBookingsAdapter.notifyDataSetChanged();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getActivity(), "failedd" +e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        )
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put("shop_id", String.valueOf(shop_id));
-                params.put("client_id", String.valueOf(client_id));
-                params.put("transNo", String.valueOf(transNo));
-                //first 'email' nga kay mao pangan para kuha nimo para sa php
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(stringRequest);
-
     }
 }

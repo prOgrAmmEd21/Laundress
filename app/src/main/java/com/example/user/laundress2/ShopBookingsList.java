@@ -36,22 +36,22 @@ public class ShopBookingsList{
     private String transWeight;
     private String transDateTime;
     private String transStat;
-    private String id;
-    private String transNo;
+    private int id;
+    private int transNo;
 
-    public String getTransNo() {
+    public int getTransNo() {
         return transNo;
     }
 
-    public void setTransNo(String transNo) {
+    public void setTransNo(int transNo) {
         this.transNo = transNo;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
