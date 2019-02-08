@@ -39,7 +39,7 @@ public class ShopBookings extends Fragment {
     ArrayList<Integer> arrTransNo = new ArrayList<>();
     private Context context;
     ListView listView;
-    private static final String URL_ALL = "http://192.168.137.1/laundress/shop_bookings.php";
+    private static final String URL_ALL = "http://192.168.43.158/laundress/shop_bookings.php";
     ArrayList<ShopBookingsList> shopBookingsLists = new ArrayList<>();
     ShopBookingsAdapter shopBookingsAdapter;
     private RequestQueue requestQueue;
@@ -215,7 +215,7 @@ public class ShopBookings extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "failedBookings", Toast.LENGTH_SHORT).show();
                     }
                 }
         )

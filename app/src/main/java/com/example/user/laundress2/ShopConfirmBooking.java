@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class ShopConfirmBooking extends AppCompatActivity {
     int clientID, trans_No;
-    private static final String URL_TRANS ="http://192.168.137.1/laundress/shop_bookings_update.php";
+    private static final String URL_TRANS ="http://192.168.43.158/laundress/shop_bookings_update.php";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +63,6 @@ public class ShopConfirmBooking extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(ShopConfirmBooking.this, "Update Failed " + error.toString(), Toast.LENGTH_SHORT).show();
-
                     }
                 })
 
@@ -79,6 +78,5 @@ public class ShopConfirmBooking extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
     }
 }

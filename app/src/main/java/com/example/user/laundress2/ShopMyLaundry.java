@@ -36,7 +36,7 @@ public class ShopMyLaundry extends Fragment {
     ArrayList<String> arrAddress = new ArrayList<>();
     private Context context;
     ListView listView;
-    private static final String URL_ALL = "http://192.168.137.1/laundress/shop_mylaundry.php";
+    private static final String URL_ALL = "http://192.168.43.158/laundress/shop_mylaundry.php";
     ArrayList<ShopMyLaundryList> shopMyLaundryLists = new ArrayList<>();
     ShopMyLaundryAdapter shopMyLaundryAdapter;
     private RequestQueue requestQueue;
@@ -173,7 +173,7 @@ public class ShopMyLaundry extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "failedLaundry", Toast.LENGTH_SHORT).show();
                     }
                 }
         )
