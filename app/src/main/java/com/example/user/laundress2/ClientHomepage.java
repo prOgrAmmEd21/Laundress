@@ -2,7 +2,6 @@ package com.example.user.laundress2;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -15,7 +14,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telephony.mbms.MbmsErrors;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -95,7 +93,9 @@ public class ClientHomepage extends AppCompatActivity implements NavigationView.
         if (id == R.id.chat) {
             return true;
         } else if(id == R.id.notification){
-            return true;
+            Bundle extras = new Bundle();
+            extras.putString("client_name",client_name);
+            extras.putInt("client_id", client_id);
         }
 
         return super.onOptionsItemSelected(item);
@@ -114,7 +114,18 @@ public class ClientHomepage extends AppCompatActivity implements NavigationView.
             intent.putExtras(extras);
             startActivity(intent);
         } else if (id == R.id.laundryinventory) {
-            Intent intent = new Intent(ClientHomepage.this, ClientLaundryInventory.class);
+            Bundle extras = new Bundle();
+            extras.putString("client_name",client_name);
+            extras.putInt("client_id", client_id);
+            Intent intent = new Intent(ClientHomepage.this, ClientLaundryDetails.class);
+            intent.putExtras(extras);
+            startActivity(intent);
+        } else if (id == R.id.account) {
+            Bundle extras = new Bundle();
+            extras.putString("client_name",client_name);
+            extras.putInt("client_id", client_id);
+            Intent intent = new Intent(ClientHomepage.this, ClientAccountDetails.class);
+            intent.putExtras(extras);
             startActivity(intent);
         } else if (id == R.id.account) {
             Bundle extras = new Bundle();
@@ -124,7 +135,11 @@ public class ClientHomepage extends AppCompatActivity implements NavigationView.
             intent.putExtras(extras);
             startActivity(intent);
         } else if (id == R.id.history) {
+            Bundle extras = new Bundle();
+            extras.putString("client_name",client_name);
+            extras.putInt("client_id", client_id);
             Intent intent = new Intent(ClientHomepage.this, ClientHistory.class);
+            intent.putExtras(extras);
             startActivity(intent);
         } else if (id == R.id.logout) {
             Intent intent = new Intent(ClientHomepage.this, ClientLogout.class);

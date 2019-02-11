@@ -37,9 +37,11 @@ public class ShopBookings extends Fragment {
     ArrayList<String> arrDateTime = new ArrayList<>();
     ArrayList<String> arrStatus = new ArrayList<>();
     ArrayList<Integer> arrTransNo = new ArrayList<>();
+    ArrayList<String> arrShopName = new ArrayList<>();
+    ArrayList<Integer> arrShopID = new ArrayList<>();
     private Context context;
     ListView listView;
-    private static final String URL_ALL = "http://192.168.43.158/laundress/shop_bookings.php";
+    private static final String URL_ALL = "http://192.168.137.1/laundress/shop_bookings.php";
     ArrayList<ShopBookingsList> shopBookingsLists = new ArrayList<>();
     ShopBookingsAdapter shopBookingsAdapter;
     private RequestQueue requestQueue;
@@ -53,7 +55,7 @@ public class ShopBookings extends Fragment {
         ShopBookings shopBookings = new ShopBookings();
         Bundle args = new Bundle();
         args.putInt("shop_id", shop_id);
-        args.putString("shop_name", shop_name);
+        args.putString("name", shop_name);
         shopBookings.setArguments(args);
 
         return shopBookings;
@@ -75,9 +77,10 @@ public class ShopBookings extends Fragment {
 
         requestQueue = Volley.newRequestQueue(getContext());
         shop_id = getArguments().getInt("shop_id");
-        shop_name = getArguments().getString("shop_name");
+        shop_name = getArguments().getString("name");
         client_id = getArguments().getInt("client_id");
         booking = getArguments().getString("booking");
+
         bookings(shop_id, shop_name);
 
         try {
@@ -114,6 +117,8 @@ public class ShopBookings extends Fragment {
             if (success.equals("1")){
                 for (int i =0;i<jsonArray.length();i++)
                 {
+                    int shopID = jsonArray.getJSONObject(i).getInt("shop_id");
+                    String shopName = jsonArray.getJSONObject(i).getString("shop_name");
                     int id = jsonArray.getJSONObject(i).getInt("clientID");
                     String name = jsonArray.getJSONObject(i).getString("clientName");
                     String transServ = jsonArray.getJSONObject(i).getString("transService");
@@ -132,6 +137,8 @@ public class ShopBookings extends Fragment {
                     arrDateTime.add(transDateTime);
                     arrStatus.add(transStat);
                     arrTransNo.add(transNo);
+                    arrShopID.add(shopID);
+                    arrShopName.add(shopName);
                     ShopBookingsList shopBookingsList = new ShopBookingsList();
                     shopBookingsList.setTransNo(transNo);
                     shopBookingsList.setId(id);
@@ -170,6 +177,8 @@ public class ShopBookings extends Fragment {
                             if (success.equals("1")){
                                 for (int i =0;i<jsonArray.length();i++)
                                 {
+                                    int shopID = jsonArray.getJSONObject(i).getInt("shop_id");
+                                    String shopName = jsonArray.getJSONObject(i).getString("shop_name");
                                     int id = jsonArray.getJSONObject(i).getInt("clientID");
                                     String name = jsonArray.getJSONObject(i).getString("clientName");
                                     String transServ = jsonArray.getJSONObject(i).getString("transService");
@@ -188,7 +197,11 @@ public class ShopBookings extends Fragment {
                                     arrDateTime.add(transDateTime);
                                     arrStatus.add(transStat);
                                     arrTransNo.add(transNo);
+                                    arrShopID.add(shopID);
+                                    arrShopName.add(shopName);
                                     ShopBookingsList shopBookingsList = new ShopBookingsList();
+                                    shopBookingsList.setShopID(shopID);
+                                    shopBookingsList.setShopName(shopName);
                                     shopBookingsList.setTransNo(transNo);
                                     shopBookingsList.setId(id);
                                     shopBookingsList.setName(name);

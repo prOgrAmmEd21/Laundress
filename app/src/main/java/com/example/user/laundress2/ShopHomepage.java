@@ -23,7 +23,8 @@ public class ShopHomepage extends AppCompatActivity implements NavigationView.On
 
     private ViewPager mViewPager;
     String name;
-    int id;
+    int shop_id;
+    String stringShopID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,6 @@ public class ShopHomepage extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nv);
         navigationView.setNavigationItemSelectedListener(this);
 
-        name = getIntent().getStringExtra("name");
-        id = getIntent().getIntExtra("id", 0);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -55,7 +54,11 @@ public class ShopHomepage extends AppCompatActivity implements NavigationView.On
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        name = extras.getString("name");
+        shop_id = extras.getInt("id");
+        stringShopID = extras.getString("StringID");
     }
     @Override
     public void onBackPressed() {
@@ -80,7 +83,12 @@ public class ShopHomepage extends AppCompatActivity implements NavigationView.On
         if (id == R.id.chat) {
             return true;
         } else if(id == R.id.notification){
-            return true;
+            Bundle extras = new Bundle();
+            extras.putString("shop_name",name);
+            extras.putInt("shop_id", shop_id);
+            Intent intent = new Intent(ShopHomepage.this, ShopNotification.class);
+            intent.putExtras(extras);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -92,17 +100,25 @@ public class ShopHomepage extends AppCompatActivity implements NavigationView.On
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (id == R.id.rating) {
-           /* Bundle extras = new Bundle();
-            extras.putString("client_name",client_name);
-            extras.putInt("client_id", client_id);*/
+            Bundle extras = new Bundle();
+            extras.putString("shop_name",name);
+            extras.putInt("shop_id", shop_id);
             Intent intent = new Intent(ShopHomepage.this, ShopRate.class);
-            //intent.putExtras(extras);
+            intent.putExtras(extras);
             startActivity(intent);
         } else if (id == R.id.laundryservices) {
+            Bundle extras = new Bundle();
+            extras.putString("shop_name",name);
+            extras.putInt("shop_id", shop_id);
             Intent intent = new Intent(ShopHomepage.this, ShopLaundryServices.class);
+            intent.putExtras(extras);
             startActivity(intent);
         } else if (id == R.id.history) {
+            Bundle extras = new Bundle();
+            extras.putString("shop_name",name);
+            extras.putInt("shop_id", shop_id);
             Intent intent = new Intent(ShopHomepage.this, ShopHistory.class);
+            intent.putExtras(extras);
             startActivity(intent);
         } else if (id == R.id.logout) {
             Intent intent = new Intent(ShopHomepage.this, ShopLogout.class);
@@ -124,9 +140,9 @@ public class ShopHomepage extends AppCompatActivity implements NavigationView.On
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return ShopMyLaundry.newInstance(id, name);
+                    return ShopMyLaundry.newInstance(shop_id, name);
                 case 1:
-                    return ShopBookings.newInstance(id, name);
+                    return ShopBookings.newInstance(shop_id, name);
                 case 2:
                     ShopPosts shopPosts = new ShopPosts();
                     return shopPosts;

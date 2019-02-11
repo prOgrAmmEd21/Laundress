@@ -92,12 +92,19 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ShopRate"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:label="My Ratings"/>
         <activity
             android:name=".ShopConfirmBooking"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:label="Bookings"/>
+        <activity
+            android:name=".ShopNotification"
+            android:label="Notifications"/>
+        <activity
+            android:name=".ShopLaundryServices"
+            android:label="My Laundry Services"/>
+        <activity
+            android:name=".ShopHistory"
+            android:label="History"/>
 
 
 

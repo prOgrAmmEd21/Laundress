@@ -36,7 +36,7 @@ public class ShopMyLaundry extends Fragment {
     ArrayList<String> arrAddress = new ArrayList<>();
     private Context context;
     ListView listView;
-    private static final String URL_ALL = "http://192.168.43.158/laundress/shop_mylaundry.php";
+    private static final String URL_ALL = "http://192.168.137.1/laundress/shop_mylaundry.php";
     ArrayList<ShopMyLaundryList> shopMyLaundryLists = new ArrayList<>();
     ShopMyLaundryAdapter shopMyLaundryAdapter;
     private RequestQueue requestQueue;
@@ -76,8 +76,6 @@ public class ShopMyLaundry extends Fragment {
 
         shop_id = getArguments().getInt("shop_id");
         shop_name = getArguments().getString("shop_name");
-        //Toast.makeText(getActivity(), "id " +shop_id, Toast.LENGTH_SHORT).show();
-        //Toast.makeText(getActivity(), "name " +shop_name, Toast.LENGTH_SHORT).show();
         shop(shop_id, shop_name);
 
 //        try {

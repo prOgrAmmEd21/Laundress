@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity {
     private EditText email, password;
     private Button login;
     private ProgressBar load;
-    private static String URL_LOGIN = "http://192.168.43.158/laundress/login.php";
+    private static String URL_LOGIN = "http://192.168.137.1/laundress/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +86,7 @@ public class Login extends AppCompatActivity {
                                     if(user.equals("laundryclient")) {
                                         Intent intent = new Intent(context, ClientHomepage.class);
                                         intent.putExtra("id", id);
+                                        intent.putExtra("StringID", id);
                                         intent.putExtra("name", name);
                                         startActivity(intent);
                                     }

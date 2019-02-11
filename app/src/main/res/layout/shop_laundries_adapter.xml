@@ -148,7 +148,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:background="@android:color/transparent"
+            android:background="@drawable/bordered_button"
             android:gravity="center"
             android:text="FINISH LAUNDRY"
             android:textColor="@color/darkBlue" />

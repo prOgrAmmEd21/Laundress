@@ -2,10 +2,12 @@ package com.example.user.laundress2;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.Rating;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -13,20 +15,20 @@ import java.util.ArrayList;
 public class ShopRateAdapter extends BaseAdapter {
     Context context;
     ItemHolder itemHolder;
-    ArrayList<ShopRateList> shopRateLists;
+    ArrayList<ShopRatingList> shopRatingLists;
 
-    public ShopRateAdapter(Context context, ArrayList<ShopRateList> shopRateLists) {
+    public ShopRateAdapter(Context context, ArrayList<ShopRatingList> shopRatingLists) {
         this.context = context;
-        this.shopRateLists = shopRateLists;
+        this.shopRatingLists = shopRatingLists;
     }
     @Override
     public int getCount() {
-        return shopRateLists.size();
+        return shopRatingLists.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return shopRateLists.get(position);
+        return shopRatingLists.get(position);
     }
 
     @Override
@@ -41,13 +43,13 @@ public class ShopRateAdapter extends BaseAdapter {
             itemHolder = new ItemHolder();
             convertView = layoutInflater.inflate(R.layout.shop_rate_adapter, parent, false);
             itemHolder.clientName = (TextView) convertView.findViewById(R.id.tv_clientName);
-            itemHolder.rating = (TextView) convertView.findViewById(R.id.tv_rating);
+            itemHolder.rating = convertView.findViewById(R.id.ratings);
             itemHolder.comment = (TextView) convertView.findViewById(R.id.tv_comment);
-            itemHolder.comment = (TextView) convertView.findViewById(R.id.tv_date);
-            itemHolder.clientName.setText(shopRateLists.get(position).getClientName());
-            itemHolder.rating.setText(shopRateLists.get(position).getRating());
-            itemHolder.comment.setText(shopRateLists.get(position).getComment());
-            itemHolder.date.setText(shopRateLists.get(position).getDate());
+            itemHolder.date = (TextView) convertView.findViewById(R.id.tv_date);
+            itemHolder.clientName.setText(shopRatingLists.get(position).getClientName());
+            itemHolder.comment.setText(shopRatingLists.get(position).getComment());
+            itemHolder.date.setText(shopRatingLists.get(position).getDate());
+            itemHolder.rating.setRating(shopRatingLists.get(position).getRate());
         }
 
         return convertView;
@@ -55,7 +57,7 @@ public class ShopRateAdapter extends BaseAdapter {
 
     private class ItemHolder{
         TextView clientName;
-        TextView rating;
+        RatingBar rating;
         TextView comment;
         TextView date;
     }

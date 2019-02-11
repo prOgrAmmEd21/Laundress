@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -74,6 +75,8 @@ public class ShopBookingsAdapter extends BaseAdapter {
                     Bundle extras = new Bundle();
                     extras.putInt("clientID", shopBookingsList.getId());
                     extras.putInt("trans_No", shopBookingsList.getTransNo());
+                    extras.putInt("shop_id", shopBookingsList.getShopID());
+                    extras.putString("name", shopBookingsList.getShopName());
                     Intent intent = new Intent(context, ShopConfirmBooking.class);
                     intent.putExtras(extras);
                     context.startActivity(intent);
