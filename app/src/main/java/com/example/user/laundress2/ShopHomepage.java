@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class ShopHomepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ShopHomepage.SectionsPagerAdapter mSectionsPagerAdapter;
@@ -58,7 +59,7 @@ public class ShopHomepage extends AppCompatActivity implements NavigationView.On
         Bundle extras = intent.getExtras();
         name = extras.getString("name");
         shop_id = extras.getInt("id");
-        stringShopID = extras.getString("StringID");
+
     }
     @Override
     public void onBackPressed() {

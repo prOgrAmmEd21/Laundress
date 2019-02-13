@@ -21,10 +21,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShopConfirmBooking extends AppCompatActivity {
+public class ShopFinishLaundry extends AppCompatActivity {
     int clientID, trans_No, shop_id;
     String shop_name;
-    private static final String URL_TRANS ="http://192.168.43.158/laundress/shop_bookings_update.php";
+    private static final String URL_TRANS ="http://192.168.43.158/laundress/shop_finish_laundry.php";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +34,10 @@ public class ShopConfirmBooking extends AppCompatActivity {
         trans_No = extras.getInt("trans_No");
         shop_id = extras.getInt("shop_id");
         shop_name = extras.getString("shop_name");
-        updateTransStatus(trans_No, clientID, shop_id);
+        updateTransStatus(trans_No, clientID);
     }
 
-    private void updateTransStatus(final int trans_Nos, final int clientIDs, final int shopIDs) {
+    private void updateTransStatus(final int trans_Nos, final int clientIDs) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_TRANS,
                 new Response.Listener<String>() {
                     @Override
@@ -47,26 +47,27 @@ public class ShopConfirmBooking extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
                             if(success.equals("1")){
-                                Toast.makeText(ShopConfirmBooking.this, "Request Confirmed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ShopFinishLaundry.this, "Laundry Finished", Toast.LENGTH_SHORT).show();
                                 Bundle extras = new Bundle();
                                 extras.putInt("client_id", clientID);
                                 extras.putInt("trans_no", trans_No);
                                 extras.putInt("id", shop_id);
                                 extras.putString("name", shop_name);
-                                Intent intent = new Intent(ShopConfirmBooking.this, ShopHomepage.class);
+                                extras.putString("finished", "finished");
+                                Intent intent = new Intent(ShopFinishLaundry.this, ShopHomepage.class);
                                 intent.putExtras(extras);
                                 startActivity(intent);
                             }
                         } catch (JSONException e){
                             e.printStackTrace();
-                            Toast.makeText(ShopConfirmBooking.this, "Update Failed " + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ShopFinishLaundry.this, "Update Failed " + e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ShopConfirmBooking.this, "Update Failed " + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShopFinishLaundry.this, "Update Failed " + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 })
 
@@ -76,7 +77,7 @@ public class ShopConfirmBooking extends AppCompatActivity {
                 Map<String,String> params = new HashMap<>();
                 params.put("transNo", String.valueOf(trans_Nos));
                 params.put("clientID", String.valueOf(clientIDs));
-                params.put("shopID", String.valueOf(shopIDs));
+                params.put("shopID", String.valueOf(shop_id));
                 return params;
             }
         };

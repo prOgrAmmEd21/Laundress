@@ -4,13 +4,49 @@ public class ShopMyLaundryList {
     private String name;
     private String address;
     private String contact;
-    private String clientID;
+    private int clientID;
+    private String shopName;
+    private int shopID;
+    private int transNo;
+    private int lspID;
 
-    public String getClientID() {
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public int getShopID() {
+        return shopID;
+    }
+
+    public void setShopID(int shopID) {
+        this.shopID = shopID;
+    }
+
+    public int getLspID() {
+        return lspID;
+    }
+
+    public void setLspID(int lspID) {
+        this.lspID = lspID;
+    }
+
+    public int getTransNo() {
+        return transNo;
+    }
+
+    public void setTransNo(int transNo) {
+        this.transNo = transNo;
+    }
+
+    public int getClientID() {
         return clientID;
     }
 
-    public void setClientID(String clientID) {
+    public void setClientID(int clientID) {
         this.clientID = clientID;
     }
 

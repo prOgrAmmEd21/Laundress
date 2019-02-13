@@ -30,7 +30,7 @@ public class ShopHistory extends AppCompatActivity {
     ShopHistoryAdapter shopHistoryAdapter;
     ArrayList<ShopHistoryList> shopHistoryLists = new ArrayList<>();
     private Context context;
-    private static final String URL_ALL ="http://192.168.137.1/laundress/shop_history.php";
+    private static final String URL_ALL ="http://192.168.43.158/laundress/shop_history.php";
     String shop_name;
     int shop_id;
 
@@ -56,6 +56,9 @@ public class ShopHistory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_history);
         history = findViewById(R.id.lvhistory);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         shop_name = extras.getString("shop_name");

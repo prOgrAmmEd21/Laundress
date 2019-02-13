@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ShopNotifAdpater extends BaseAdapter {
+public class ShopNotifAdapter extends BaseAdapter {
     Context context;
-    ShopNotifAdpater.ItemHolder itemHolder;
+    ShopNotifAdapter.ItemHolder itemHolder;
     ArrayList<ShopNotificationList> shopNotificationLists;
 
-    public ShopNotifAdpater(Context context, ArrayList<ShopNotificationList> shopNotificationLists) {
+    public ShopNotifAdapter(Context context, ArrayList<ShopNotificationList> shopNotificationLists) {
         this.context = context;
         this.shopNotificationLists = shopNotificationLists;
     }
@@ -39,24 +39,27 @@ public class ShopNotifAdpater extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater = ((Activity) context).getLayoutInflater();
-        itemHolder = new ShopNotifAdpater.ItemHolder();
+        itemHolder = new ShopNotifAdapter.ItemHolder();
         convertView = layoutInflater.inflate(R.layout.shop_notification_adapter, parent, false);
         itemHolder.name = (TextView) convertView.findViewById(R.id.name);
         itemHolder.status = (TextView) convertView.findViewById(R.id.status);
         itemHolder.ratings = convertView.findViewById(R.id.ratings);
+        //final ClientPostList clientPostList=clientPostLists.get(position);
+        //}
+        itemHolder.name.setText(shopNotificationLists.get(position).getClientName());
+        // itemHolder.status.setText(handwasherNotifLists.get(position).getNotification_message());
         String message = shopNotificationLists.get(position).getMessage();
-        if(message.equals("Approved")){
-            itemHolder.name.setText(shopNotificationLists.get(position).getClientName());
-            itemHolder.status.setText("Approved your service. Please wait for laundry Details confirmation.");
-        }else if(message.equals("Declined")){
-            itemHolder.name.setText(shopNotificationLists.get(position).getClientName());
-            itemHolder.status.setText("Your Request has been declined");
+        if(message.equals("Pending")){
+            itemHolder.status.setText("Requested your service.");
+        }else if(message.equals("Missed")){
+            itemHolder.status.setText("You Missed the Service.");
         }else if(message.equals("Finished")){
             itemHolder.name.setText(shopNotificationLists.get(position).getClientName());
-            itemHolder.status.setText("Laundry Service is finished. \n" +shopNotificationLists.get(position).getClientName()+" has rated you");
+            itemHolder.status.setText(shopNotificationLists.get(position).getClientName()+" has rated you");
             itemHolder.ratings.setVisibility(View.VISIBLE);
             itemHolder.ratings.setRating(shopNotificationLists.get(position).getRate());
         }
+
 
         return convertView;
     }

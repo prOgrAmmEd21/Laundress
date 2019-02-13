@@ -32,19 +32,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShopNotification extends AppCompatActivity {
+    ArrayList<Integer> arrclientid = new ArrayList<>();
+    ArrayList<Integer> arrlspid = new ArrayList<>();
+    ArrayList<Integer> arrtransno = new ArrayList<>();
+    ArrayList<String> arrnotifmes= new ArrayList<>();
     ArrayList<ShopNotificationList> shopNotificationLists = new ArrayList<>();
-    ShopNotifAdpater shopNotifAdpater;
-    private static final String URL_ALL ="http://192.168.137.1/laundress/shop_notification.php";
-    private static String URL_ADDPOST = "http://192.168.137.1/laundress/addratehandwasher.php";
+    ShopNotifAdapter shopNotifAdpater;
+    private static final String URL_ALL ="http://192.168.43.158/laundress/shop_notification.php";
     ListView lvnotif;
-    String client_name, name;
+    String shop_name, client_name;
     String notification_Message;
-    float rating;
+    int shop_id, handwasher_lspid, rate_NO;
     String rating_Date, rating_Comment, comments;
     float rating_Score;
-    int trans_No, transno, rate_No;
-    int lsp_ID;
-    int client_id, handwasher_lspid;
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
@@ -69,17 +69,9 @@ public class ShopNotification extends AppCompatActivity {
         lvnotif=findViewById(R.id.lv_notification);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        client_name = extras.getString("client_name");
-        client_id = extras.getInt("client_id");
+        shop_name = extras.getString("shop_name");
+        shop_id = extras.getInt("shop_id");
         allCategory();
-        /*if(notification_Message.equals("Finished")){
-            lvnotif.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(ClientNotification.this, "sud " +position, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }*/
     }
 
     private void allCategory() {
@@ -90,52 +82,71 @@ public class ShopNotification extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("allbooking");
+                            //JSONArray jArray = json.getJSONArray("platform");
+                            //JSONArray jsonArray = new JSONArray(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("shopNotification");
                             if (success.equals("1")){
+
                                 for (int i =0;i<jsonArray.length();i++)
                                 {
-                                    notification_Message=jsonArray.getJSONObject(i).getString("notification_Message").toString();
-                                    lsp_ID= Integer.parseInt(jsonArray.getJSONObject(i).getString("lsp_ID").toString());
-                                    int client_ID= Integer.parseInt(jsonArray.getJSONObject(i).getString("client_ID").toString());
+                                    notification_Message=jsonArray.getJSONObject(i).getString("notification_Message");
+                                    int client_ID= Integer.parseInt(jsonArray.getJSONObject(i).getString("client_ID"));
+                                    int trans_No= Integer.parseInt(jsonArray.getJSONObject(i).getString("trans_No"));
+                                    int lsp_ID= Integer.parseInt(jsonArray.getJSONObject(i).getString("lsp_ID"));
+                                    client_name = jsonArray.getJSONObject(i).getString("client_Name");
                                     String table = jsonArray.getJSONObject(i).getString("fromtable");
-                                    if(notification_Message.equals("Approved") || notification_Message.equals("Declined")|| notification_Message.equals("Finished")) {
-                                        trans_No= Integer.parseInt(jsonArray.getJSONObject(i).getString("trans_No").toString());
-                                        name = jsonArray.getJSONObject(i).getString("name");
-                                        final ShopNotificationList shopNotificationList = new ShopNotificationList();
+                                    if(notification_Message.equals("Pending") || notification_Message.equals("Missed") || notification_Message.equals("Finished")){
+                                        Toast.makeText(ShopNotification.this, "sud " + notification_Message, Toast.LENGTH_SHORT).show();
+                                        ShopNotificationList shopNotificationList = new ShopNotificationList();
                                         shopNotificationList.setClientID(client_ID);
-                                        shopNotificationList.setTransNo(trans_No);
+                                        shopNotificationList.setShopID(lsp_ID);
                                         if(notification_Message.equals("Finished")){
                                             rating_Score = Float.parseFloat(jsonArray.getJSONObject(i).getString("rating_Score"));
                                             rating_Comment = jsonArray.getJSONObject(i).getString("rating_Comment");
                                             rating_Date = jsonArray.getJSONObject(i).getString("rating_Date");
-                                            rate_No = Integer.parseInt(jsonArray.getJSONObject(i).getString("rating_No"));
+                                            rate_NO = Integer.parseInt(jsonArray.getJSONObject(i).getString("rating_No"));
 
                                             shopNotificationList.setRate(rating_Score);
                                             shopNotificationList.setComment(rating_Comment);
                                             shopNotificationList.setDateRate(rating_Date);
-                                            shopNotificationList.setRateNo(rate_No);
-                                            lvnotif.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                                @Override
-                                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                    if(shopNotificationLists.get(position).getMessage().equals("Finished")){
-                                                        transno = shopNotificationLists.get(position).getTransNo();
-                                                        showChangeLangDialog();
-                                                    }
-                                                    // Toast.makeText(ClientNotification.this, "sud " +position, Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                        }
+                                            shopNotificationList.setRateNo(rate_NO);
 
+                                        }
+                                        lvnotif.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                // transno = handwasherNotifLists.get(position).getTrans_no();
+                                                // showChangeLangDialog();
+                                                if((shopNotificationLists.get(position).getMessage().equals("Pending"))||(shopNotificationLists.get(position).getMessage().equals("Missed"))){
+                                                    Bundle extras = new Bundle();
+//                                                    extras.putString("handwasher_name",handwasher_name);
+//                                                    extras.putInt("handwasher_id", handwasher_id);
+//                                                    extras.putInt("handwasher_lspid", handwasher_lspid);
+//                                                    extras.putString("client_name", handwasherNotifLists.get(position).getClient_name());
+//                                                    extras.putString("notif_message", handwasherNotifLists.get(position).getNotification_message());
+//                                                    extras.putInt("trans_no", handwasherNotifLists.get(position).getTrans_no());
+//                                                    extras.putInt("client_id", handwasherNotifLists.get(position).getClient_id());
+                                                    //extras.putString("client_name", client_name);
+                                                    Intent intent = new Intent(ShopNotification.this, ShopNotificationOnClick.class);
+                                                    intent.putExtras(extras);
+                                                    startActivity(intent);
+                                                }
+                                                Toast.makeText(ShopNotification.this, "sud " +position+"Message "+shopNotificationLists.get(position).getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                        //}
+                                        shopNotificationList.setTransNo(trans_No);
                                         shopNotificationList.setMessage(notification_Message);
-                                        shopNotificationList.setClientName(name);
+                                        shopNotificationList.setClientName(client_name);
                                         shopNotificationList.setTable(table);
                                         shopNotificationLists.add(shopNotificationList);
                                     }
                                 }
-                                //if(notification_Message.equals("Approved") || notification_Message.equals("Declined") || notification_Message.equals("Finished")){
-                                shopNotifAdpater = new ShopNotifAdpater(ShopNotification.this,shopNotificationLists);
+                                //if(notification_Message.equals("Pending") || notification_Message.equals("Missed")){
+                                shopNotifAdpater = new ShopNotifAdapter(ShopNotification.this,shopNotificationLists);
                                 lvnotif.setAdapter(shopNotifAdpater);
-                                // }
+
+                                //}
                                 shopNotifAdpater.notifyDataSetChanged();
                             }
 
@@ -156,91 +167,12 @@ public class ShopNotification extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
-                params.put("client_id", String.valueOf(client_id));
+                params.put("shop_id", String.valueOf(shop_id));
                 return params;
             }
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
-    public void showChangeLangDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ShopNotification.this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.shop_rateclient, null);
-        final RatingBar rate = dialogView.findViewById(R.id.ratings);
-        final EditText comment = dialogView.findViewById(R.id.comment);
-        rate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                rate.setRating(rating);
-            }
-        });
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                rating = rate.getRating();
-                comments = comment.getText().toString().trim();
-                addRating(client_id, lsp_ID, trans_No, rating, comments);
-                // Toast.makeText(getActivity(), "rating " + rating+" comments "+comments+ " client_ID "+client_ID+ " handwasher_lspid "+handwasher_lspid + " trans_No "+trans_No , Toast.LENGTH_LONG).show();
-/*                String updatemessage = message.getText().toString().trim();
-                String location = showlocation.toString().trim();
-                int post_no = clientPostLists.get(pos).getPost_no();
-                updatePost(updatemessage, location, post_no);
-                ClientMyPost.this.recreate();*/
-            }
-        });
-        dialogBuilder.setNegativeButton("Skip", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                //pass
-            }
-        });
-        AlertDialog b = dialogBuilder.create();
-        b.show();
-    }
-
-    private void addRating(final int client_ID, final int handwasher_lspid, final int trans_No, final float rating, final String comments) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ADDPOST,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-
-                            if(success.equals("1")){
-                                //getActivity().recreate();
-                                Toast.makeText(ShopNotification.this, "Your rate has been sent", Toast.LENGTH_SHORT).show();
-
-                            }
-                        } catch (JSONException e){
-                            e.printStackTrace();;
-                            Toast.makeText(ShopNotification.this, "Rate Failed " + e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ShopNotification.this, "Rate Failed. No connection." +error.toString(), Toast.LENGTH_SHORT).show();
-                       /* load.setVisibility(View.GONE);
-                        login.setVisibility(View.VISIBLE);*/
-                    }
-                }
-        )
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put("client_ID", String.valueOf(ShopNotification.this.client_id));
-                params.put("handwasher_lspid", String.valueOf(ShopNotification.this.lsp_ID));
-                params.put("trans_No", String.valueOf(ShopNotification.this.transno));
-                params.put("rating", String.valueOf(ShopNotification.this.rating));
-                params.put("comments", ShopNotification.this.comments);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(ShopNotification.this);
         requestQueue.add(stringRequest);
     }
 }

@@ -76,7 +76,7 @@ public class ShopBookingsAdapter extends BaseAdapter {
                     extras.putInt("clientID", shopBookingsList.getId());
                     extras.putInt("trans_No", shopBookingsList.getTransNo());
                     extras.putInt("shop_id", shopBookingsList.getShopID());
-                    extras.putString("name", shopBookingsList.getShopName());
+                    extras.putString("shop_name", shopBookingsList.getShopName());
                     Intent intent = new Intent(context, ShopConfirmBooking.class);
                     intent.putExtras(extras);
                     context.startActivity(intent);

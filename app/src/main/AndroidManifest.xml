@@ -105,6 +105,15 @@
         <activity
             android:name=".ShopHistory"
             android:label="History"/>
+        <activity
+            android:name=".ShopFinishLaundry"
+            android:label="Finish Laundry"/>
+        <activity
+            android:name=".ShopViewLaundryDetails"
+            android:label="View Laundry Details"/>
+        <activity
+            android:name=".ShopVIewRequestDetails"
+            android:label="View Laundry Details"/>
 
 
 

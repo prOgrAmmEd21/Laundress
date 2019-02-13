@@ -3,6 +3,8 @@ package com.example.user.laundress2;
 public class ShopNotificationList {
     private int clientID;
     private String clientName;
+    private int shopID;
+    private String shopName;
     private int transNo;
     private int notiNo;
     private String message;
@@ -26,6 +28,22 @@ public class ShopNotificationList {
 
     public void setClientName(String clientName) {
         this.clientName = clientName;
+    }
+
+    public int getShopID() {
+        return shopID;
+    }
+
+    public void setShopID(int shopID) {
+        this.shopID = shopID;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 
     public int getTransNo() {

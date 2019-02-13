@@ -3,6 +3,7 @@ package com.example.user.laundress2;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,17 +46,46 @@ public class ShopMyLaundryAdapter extends BaseAdapter {
             itemHolder.name = (TextView) convertView.findViewById(R.id.tv_name);
             itemHolder.contact = (TextView) convertView.findViewById(R.id.tv_phone);
             itemHolder.address = (TextView) convertView.findViewById(R.id.tv_address);
-            itemHolder.viewReq = convertView.findViewById(R.id.btn_viewlaundry);
+            itemHolder.viewReq = convertView.findViewById(R.id.btn_viewrequest);
             itemHolder.viewLaun = convertView.findViewById(R.id.btn_viewlaundry);
             itemHolder.finish = convertView.findViewById(R.id.btn_finish);
             final ShopMyLaundryList shopMyLaundryList = shopMyLaundryLists.get(position);
-            itemHolder.viewLaun.setOnClickListener(new View.OnClickListener() {
+            itemHolder.viewReq.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, ChooseLaundryShop.class);
+                    Intent intent = new Intent(context, ShopVIewRequestDetails.class);
+                    intent.putExtra("clientID", shopMyLaundryList.getClientID());
+                    intent.putExtra("shopID", shopMyLaundryList.getShopID());
+                    intent.putExtra("trans_No", shopMyLaundryList.getTransNo());
                     intent.putExtra("name", shopMyLaundryList.getName());
                     intent.putExtra("address", shopMyLaundryList.getAddress());
                     intent.putExtra("contact", shopMyLaundryList.getContact());
+                    context.startActivity(intent);
+                }
+            });
+            itemHolder.viewLaun.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ShopViewLaundryDetails.class);
+                    intent.putExtra("clientID", shopMyLaundryList.getClientID());
+                    intent.putExtra("shopID", shopMyLaundryList.getShopID());
+                    intent.putExtra("transNo", shopMyLaundryList.getTransNo());
+                    intent.putExtra("name", shopMyLaundryList.getName());
+                    intent.putExtra("address", shopMyLaundryList.getAddress());
+                    intent.putExtra("contact", shopMyLaundryList.getContact());
+                    context.startActivity(intent);
+                }
+            });
+            itemHolder.finish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle extras = new Bundle();
+                    extras.putInt("clientID", shopMyLaundryList.getClientID());
+                    extras.putInt("trans_No", shopMyLaundryList.getTransNo());
+                    extras.putInt("shop_id", shopMyLaundryList.getShopID());
+                    extras.putString("shop_name", shopMyLaundryList.getShopName());
+                    Intent intent = new Intent(context, ShopFinishLaundry.class);
+                    intent.putExtras(extras);
                     context.startActivity(intent);
                 }
             });

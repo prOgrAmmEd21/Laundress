@@ -47,8 +47,8 @@ public class ShopRate extends AppCompatActivity {
     float rating;
     ShopRateAdapter shopRateAdapter;
     ArrayList<ShopRatingList> shopRatingLists = new ArrayList<>();
-    private static final String URL_ALL ="http://192.168.137.1/laundress/shop_ratings.php";
-    private static final String URL_UPDATE ="http://192.168.137.1/laundress/shop_update_ratings.php";
+    private static final String URL_ALL ="http://192.168.43.158/laundress/shop_ratings.php";
+    private static final String URL_UPDATE ="http://192.168.43.158/laundress/shop_update_ratings.php";
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -201,7 +201,7 @@ public class ShopRate extends AppCompatActivity {
 
                             if(success.equals("1")){
                                 Toast.makeText(ShopRate.this, "Rate Updated Successfully", Toast.LENGTH_SHORT).show();
-
+                                ShopRate.this.recreate();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

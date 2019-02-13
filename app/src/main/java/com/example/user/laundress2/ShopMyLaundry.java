@@ -31,12 +31,16 @@ import java.util.Map;
 
 public class ShopMyLaundry extends Fragment {
 
+    ArrayList<Integer> arrTransNo = new ArrayList<>();
     ArrayList<String> arrName = new ArrayList<>();
+    ArrayList<Integer> arrShopID = new ArrayList<>();
+    ArrayList<String> arrShopName = new ArrayList<>();
+    ArrayList<Integer> arrClientID = new ArrayList<>();
     ArrayList<String> arrContact = new ArrayList<>();
     ArrayList<String> arrAddress = new ArrayList<>();
     private Context context;
     ListView listView;
-    private static final String URL_ALL = "http://192.168.137.1/laundress/shop_mylaundry.php";
+    private static final String URL_ALL = "http://192.168.43.158/laundress/shop_mylaundry.php";
     ArrayList<ShopMyLaundryList> shopMyLaundryLists = new ArrayList<>();
     ShopMyLaundryAdapter shopMyLaundryAdapter;
     private RequestQueue requestQueue;
@@ -77,62 +81,7 @@ public class ShopMyLaundry extends Fragment {
         shop_id = getArguments().getInt("shop_id");
         shop_name = getArguments().getString("shop_name");
         shop(shop_id, shop_name);
-
-//        try {
-//            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ALL,
-//                    new Response.Listener<String>() {
-//                        @Override
-//                        public void onResponse(String response) {
-//                            getJsonResponse(response);
-//                            System.out.println("RESPONSEesponse");
-//                        }
-//                    },
-//                    new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-//
-//            requestQueue.add(stringRequest);
-//        }
-//        catch (Exception e)
-//        {
-//
-//        }
     }
-
-//    private void getJsonResponse(String response)
-//    {
-//        try {
-//            JSONObject jsonObject = new JSONObject(response);
-//            String success = jsonObject.getString("success");
-//            //JSONArray jArray = json.getJSONArray("platform");
-//            //JSONArray jsonArray = new JSONArray(response);
-//            JSONArray jsonArray = jsonObject.getJSONArray("shopMyLaundry");
-//            if (success.equals("1")){
-//                for (int i =0;i<jsonArray.length();i++)
-//                {
-//                    String name = jsonArray.getJSONObject(i).getString("clientName");
-//                    String address = jsonArray.getJSONObject(i).getString("clientAddress");
-//                    String contact = jsonArray.getJSONObject(i).getString("clientContact");
-//                    arrName.add(name);
-//                    arrAddress.add(address);
-//                    arrContact.add(contact);
-//                    ShopMyLaundryList shopMyLaundryList = new ShopMyLaundryList();
-//                    shopMyLaundryList.setName(name);
-//                    shopMyLaundryList.setAddress(address);
-//                    shopMyLaundryList.setContact(contact);
-//                    shopMyLaundryLists.add(shopMyLaundryList);
-//                }
-//                shopMyLaundryAdapter.notifyDataSetChanged();
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//            Toast.makeText(getActivity(), "failedddd" +e.toString(), Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
 
     private void shop(final int shop_id, final String client_id){
 
@@ -148,13 +97,23 @@ public class ShopMyLaundry extends Fragment {
                             if (success.equals("1")){
                                 for (int i =0;i<jsonArray.length();i++)
                                 {
+                                    int transNo = jsonArray.getJSONObject(i).getInt("transNo");
+                                    int clientID = jsonArray.getJSONObject(i).getInt("clientID");
                                     String name = jsonArray.getJSONObject(i).getString("clientName");
                                     String address = jsonArray.getJSONObject(i).getString("clientAddress");
                                     String contact = jsonArray.getJSONObject(i).getString("clientContact");
+                                    arrClientID.add(clientID);
+                                    arrTransNo.add(transNo);
                                     arrName.add(name);
+                                    arrShopID.add(shop_id);
+                                    arrShopName.add(shop_name);
                                     arrAddress.add(address);
                                     arrContact.add(contact);
                                     ShopMyLaundryList shopMyLaundryList = new ShopMyLaundryList();
+                                    shopMyLaundryList.setShopID(shop_id);
+                                    shopMyLaundryList.setShopName(shop_name);
+                                    shopMyLaundryList.setTransNo(transNo);
+                                    shopMyLaundryList.setClientID(clientID);
                                     shopMyLaundryList.setName(name);
                                     shopMyLaundryList.setAddress(address);
                                     shopMyLaundryList.setContact(contact);
