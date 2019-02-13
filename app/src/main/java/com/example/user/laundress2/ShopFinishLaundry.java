@@ -24,7 +24,7 @@ import java.util.Map;
 public class ShopFinishLaundry extends AppCompatActivity {
     int clientID, trans_No, shop_id;
     String shop_name;
-    private static final String URL_TRANS ="http://192.168.43.158/laundress/shop_finish_laundry.php";
+    private static final String URL_TRANS ="http://192.168.124.83/laundress/shop_finish_laundry.php";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

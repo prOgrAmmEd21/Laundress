@@ -1,18 +1,13 @@
 package com.example.user.laundress2;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -32,13 +27,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShopNotification extends AppCompatActivity {
-    ArrayList<Integer> arrclientid = new ArrayList<>();
-    ArrayList<Integer> arrlspid = new ArrayList<>();
-    ArrayList<Integer> arrtransno = new ArrayList<>();
-    ArrayList<String> arrnotifmes= new ArrayList<>();
     ArrayList<ShopNotificationList> shopNotificationLists = new ArrayList<>();
-    ShopNotifAdapter shopNotifAdpater;
-    private static final String URL_ALL ="http://192.168.43.158/laundress/shop_notification.php";
+    ShopNotifAdapter shopNotifAdapter;
+    private static final String URL_ALL ="http://192.168.124.83/laundress/shop_notification.php";
     ListView lvnotif;
     String shop_name, client_name;
     String notification_Message;
@@ -82,24 +73,22 @@ public class ShopNotification extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
-                            //JSONArray jArray = json.getJSONArray("platform");
-                            //JSONArray jsonArray = new JSONArray(response);
                             JSONArray jsonArray = jsonObject.getJSONArray("shopNotification");
                             if (success.equals("1")){
 
                                 for (int i =0;i<jsonArray.length();i++)
                                 {
                                     notification_Message=jsonArray.getJSONObject(i).getString("notification_Message");
+                                    int lsp_ID= Integer.parseInt(jsonArray.getJSONObject(i).getString("lsp_ID"));
                                     int client_ID= Integer.parseInt(jsonArray.getJSONObject(i).getString("client_ID"));
                                     int trans_No= Integer.parseInt(jsonArray.getJSONObject(i).getString("trans_No"));
-                                    int lsp_ID= Integer.parseInt(jsonArray.getJSONObject(i).getString("lsp_ID"));
                                     client_name = jsonArray.getJSONObject(i).getString("client_Name");
                                     String table = jsonArray.getJSONObject(i).getString("fromtable");
                                     if(notification_Message.equals("Pending") || notification_Message.equals("Missed") || notification_Message.equals("Finished")){
-                                        Toast.makeText(ShopNotification.this, "sud " + notification_Message, Toast.LENGTH_SHORT).show();
+
                                         ShopNotificationList shopNotificationList = new ShopNotificationList();
                                         shopNotificationList.setClientID(client_ID);
-                                        shopNotificationList.setShopID(lsp_ID);
+                                        shopNotificationList.setLspID(lsp_ID);
                                         if(notification_Message.equals("Finished")){
                                             rating_Score = Float.parseFloat(jsonArray.getJSONObject(i).getString("rating_Score"));
                                             rating_Comment = jsonArray.getJSONObject(i).getString("rating_Comment");
@@ -112,6 +101,7 @@ public class ShopNotification extends AppCompatActivity {
                                             shopNotificationList.setRateNo(rate_NO);
 
                                         }
+                                        //if(notification_Message.equals("Pending") || notification_Message.equals("Missed")){
                                         lvnotif.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -119,13 +109,12 @@ public class ShopNotification extends AppCompatActivity {
                                                 // showChangeLangDialog();
                                                 if((shopNotificationLists.get(position).getMessage().equals("Pending"))||(shopNotificationLists.get(position).getMessage().equals("Missed"))){
                                                     Bundle extras = new Bundle();
-//                                                    extras.putString("handwasher_name",handwasher_name);
-//                                                    extras.putInt("handwasher_id", handwasher_id);
-//                                                    extras.putInt("handwasher_lspid", handwasher_lspid);
-//                                                    extras.putString("client_name", handwasherNotifLists.get(position).getClient_name());
-//                                                    extras.putString("notif_message", handwasherNotifLists.get(position).getNotification_message());
-//                                                    extras.putInt("trans_no", handwasherNotifLists.get(position).getTrans_no());
-//                                                    extras.putInt("client_id", handwasherNotifLists.get(position).getClient_id());
+                                                    extras.putString("shop_name",shop_name);
+                                                    extras.putInt("shop_id", shop_id);
+                                                    extras.putString("client_name", shopNotificationLists.get(position).getClientName());
+                                                    extras.putString("notif_message", shopNotificationLists.get(position).getMessage());
+                                                    extras.putInt("trans_no", shopNotificationLists.get(position).getTransNo());
+                                                    extras.putInt("client_id", shopNotificationLists.get(position).getClientID());
                                                     //extras.putString("client_name", client_name);
                                                     Intent intent = new Intent(ShopNotification.this, ShopNotificationOnClick.class);
                                                     intent.putExtras(extras);
@@ -143,11 +132,11 @@ public class ShopNotification extends AppCompatActivity {
                                     }
                                 }
                                 //if(notification_Message.equals("Pending") || notification_Message.equals("Missed")){
-                                shopNotifAdpater = new ShopNotifAdapter(ShopNotification.this,shopNotificationLists);
-                                lvnotif.setAdapter(shopNotifAdpater);
+                                shopNotifAdapter = new ShopNotifAdapter(ShopNotification.this,shopNotificationLists);
+                                lvnotif.setAdapter(shopNotifAdapter);
 
                                 //}
-                                shopNotifAdpater.notifyDataSetChanged();
+                                shopNotifAdapter.notifyDataSetChanged();
                             }
 
                         } catch (JSONException e) {

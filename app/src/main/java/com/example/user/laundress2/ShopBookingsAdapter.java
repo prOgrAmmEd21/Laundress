@@ -48,11 +48,7 @@ public class ShopBookingsAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.shop_bookings_adpater, parent, false);
             itemHolder.name = convertView.findViewById(R.id.name);
             itemHolder.reqservice1 = convertView.findViewById(R.id.tv_reqservice1);
-            itemHolder.reqservice2 = convertView.findViewById(R.id.tv_reqservice2);
-            itemHolder.reqservice3 = convertView.findViewById(R.id.tv_reqservice3);
             itemHolder.extservice1 = convertView.findViewById(R.id.tv_extservice1);
-            itemHolder.extservice2 = convertView.findViewById(R.id.tv_extservice2);
-            itemHolder.extservice3 = convertView.findViewById(R.id.tv_extservice3);
             itemHolder.serviceType = convertView.findViewById(R.id.tv_servicetype);
             itemHolder.weight = convertView.findViewById(R.id.tv_weight);
             itemHolder.dateTime = convertView.findViewById(R.id.tv_datetime);
@@ -84,11 +80,7 @@ public class ShopBookingsAdapter extends BaseAdapter {
             });
             itemHolder.name.setText(shopBookingsLists.get(position).getName());
             itemHolder.reqservice1.setText(shopBookingsLists.get(position).getTransServ1());
-            itemHolder.reqservice2.setText(shopBookingsLists.get(position).getTransServ2());
-            itemHolder.reqservice3.setText(shopBookingsLists.get(position).getTransServ3());
             itemHolder.extservice1.setText(shopBookingsLists.get(position).getTransExtra1());
-            itemHolder.extservice2.setText(shopBookingsLists.get(position).getTransExtra2());
-            itemHolder.extservice3.setText(shopBookingsLists.get(position).getTransExtra3());
             itemHolder.serviceType.setText(shopBookingsLists.get(position).getTransServType());
             itemHolder.dateTime.setText(shopBookingsLists.get(position).getTransDateTime());
             itemHolder.weight.setText(shopBookingsLists.get(position).getTransWeight());

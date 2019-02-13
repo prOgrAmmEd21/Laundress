@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,14 +32,33 @@ public class ShopNotificationOnClick extends AppCompatActivity {
     String client_name,notif_message;
     Button accept, decline, btnviewdet;
     int trans_no, client_id;
-    String handwasher_name;
-    int handwasher_id, handwasher_lspid;
-    private static final String URL_ALL ="http://192.168.254.117/laundress/alltrans.php";
-    private static final String URL_ALL_UPDATE ="http://192.168.254.117/laundress/updatetrans.php";
-    private static final String URL_ALL_UPDATE_DECLINE ="http://192.168.254.117/laundress/updatetransdecline.php";
+    String shop_name;
+    int shop_id, handwasher_lspid;
+    private static final String URL_ALL ="http://192.168.124.83/laundress/alltrans.php";
+    private static final String URL_ALL_UPDATE ="http://192.168.124.83/laundress/updatetrans.php";
+    private static final String URL_ALL_UPDATE_DECLINE ="http://192.168.124.83/laundress/updatetransdecline.php";
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    public void onBackPressed() {
+
+        // Write your code here
+
+        super.onBackPressed();
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.shop_laundry_details);
         status = findViewById(R.id.status);
         name = findViewById(R.id.name);
@@ -57,8 +77,8 @@ public class ShopNotificationOnClick extends AppCompatActivity {
         notif_message = extras.getString("notif_message");
         trans_no = extras.getInt("trans_no");
         client_id = extras.getInt("client_id");
-        handwasher_name = extras.getString("handwasher_name");
-        handwasher_id = extras.getInt("handwasher_id");
+        shop_name = extras.getString("shop_name");
+        shop_id = extras.getInt("shop_id");
         handwasher_lspid = extras.getInt("handwasher_lspid");
         name.setText(client_name);
         if(notif_message.equals("Missed")){
@@ -82,9 +102,9 @@ public class ShopNotificationOnClick extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Bundle extras = new Bundle();
-                extras.putString("name", client_name);
+                extras.putString("shop_name", shop_name);
                 extras.putInt("trans_No", trans_no);
-                extras.putInt("lsp_id", handwasher_id);
+                extras.putInt("shop_id", shop_id);
                 extras.putInt("handwasher_id", handwasher_lspid);
                 Intent intent = new Intent(ShopNotificationOnClick.this, ShopViewLaundryDetails.class);
                 intent.putExtras(extras);
@@ -104,9 +124,8 @@ public class ShopNotificationOnClick extends AppCompatActivity {
                             String success = jsonObject.getString("success");
                             if (success.equals("1")){
                                 Bundle extras = new Bundle();
-                                extras.putString("name",handwasher_name);
-                                extras.putInt("id", handwasher_id);
-                                extras.putInt("lspid", handwasher_lspid);
+                                extras.putString("name",shop_name);
+                                extras.putInt("id", shop_id);
                                 Intent intent = new Intent(ShopNotificationOnClick.this, HandwasherHomepage.class);
                                 intent.putExtras(extras);
                                 startActivity(intent);
@@ -148,8 +167,8 @@ public class ShopNotificationOnClick extends AppCompatActivity {
                             String success = jsonObject.getString("success");
                             if (success.equals("1")){
                                 Bundle extras = new Bundle();
-                                extras.putString("name",handwasher_name);
-                                extras.putInt("id", handwasher_id);
+                                extras.putString("name",shop_name);
+                                extras.putInt("id", shop_id);
                                 extras.putInt("lspid", handwasher_lspid);
                                 Intent intent = new Intent(ShopNotificationOnClick.this, HandwasherHomepage.class);
                                 intent.putExtras(extras);

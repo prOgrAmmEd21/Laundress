@@ -29,7 +29,7 @@ public class ShopVIewRequestDetails extends AppCompatActivity {
     LinearLayout llreqserv, llxtrserv, servtype, estweight;
     EditText estdatetime;
     int trans_No;
-    private static final String URL_ALL = "http://192.168.43.158/laundress/shop_viewrequestdetails.php";
+    private static final String URL_ALL = "http://192.168.124.83/laundress/shop_viewrequestdetails.php";
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

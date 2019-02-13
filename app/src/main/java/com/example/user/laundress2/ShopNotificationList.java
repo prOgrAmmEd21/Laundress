@@ -13,6 +13,15 @@ public class ShopNotificationList {
     private String dateRate;
     private String comment;
     private String table;
+    int lspID;
+
+    public int getLspID() {
+        return lspID;
+    }
+
+    public void setLspID(int lspID) {
+        this.lspID = lspID;
+    }
 
     public int getClientID() {
         return clientID;

@@ -27,11 +27,7 @@ import java.util.ArrayList;
 public class ShopBookingsList{
     private String name;
     private String transServ1;
-    private String transServ2;
-    private String transServ3;
     private String transExtra1;
-    private String transExtra2;
-    private String transExtra3;
     private String transServType;
     private String transWeight;
     private String transDateTime;
@@ -89,44 +85,12 @@ public class ShopBookingsList{
         this.transServ1 = transServ1;
     }
 
-    public String getTransServ2() {
-        return transServ2;
-    }
-
-    public void setTransServ2(String transServ2) {
-        this.transServ2 = transServ2;
-    }
-
-    public String getTransServ3() {
-        return transServ3;
-    }
-
-    public void setTransServ3(String transServ3) {
-        this.transServ3 = transServ3;
-    }
-
     public String getTransExtra1() {
         return transExtra1;
     }
 
     public void setTransExtra1(String transExtra1) {
         this.transExtra1 = transExtra1;
-    }
-
-    public String getTransExtra2() {
-        return transExtra2;
-    }
-
-    public void setTransExtra2(String transExtra2) {
-        this.transExtra2 = transExtra2;
-    }
-
-    public String getTransExtra3() {
-        return transExtra3;
-    }
-
-    public void setTransExtra3(String transExtra3) {
-        this.transExtra3 = transExtra3;
     }
 
     public String getTransServType() {

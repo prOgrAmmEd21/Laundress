@@ -114,6 +114,9 @@
         <activity
             android:name=".ShopVIewRequestDetails"
             android:label="View Laundry Details"/>
+        <activity
+            android:name=".ShopNotificationOnClick"
+            android:label="Laundry Details"/>
 
 
 

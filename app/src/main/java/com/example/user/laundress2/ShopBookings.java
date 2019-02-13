@@ -41,7 +41,7 @@ public class ShopBookings extends Fragment {
     ArrayList<Integer> arrShopID = new ArrayList<>();
     private Context context;
     ListView listView;
-    private static final String URL_ALL = "http://192.168.43.158/laundress/shop_bookings.php";
+    private static final String URL_ALL = "http://192.168.124.83/laundress/shop_bookings.php";
     ArrayList<ShopBookingsList> shopBookingsLists = new ArrayList<>();
     ShopBookingsAdapter shopBookingsAdapter;
     private RequestQueue requestQueue;
@@ -145,11 +145,7 @@ public class ShopBookings extends Fragment {
                     shopBookingsList.setName(name);
                     shopBookingsList.setTransNo(transNo);
                     shopBookingsList.setTransServ1(transServ);
-                    shopBookingsList.setTransServ2(transServ);
-                    shopBookingsList.setTransServ3(transServ);
                     shopBookingsList.setTransExtra1(transExt);
-                    shopBookingsList.setTransExtra2(transExt);
-                    shopBookingsList.setTransExtra3(transExt);
                     shopBookingsList.setTransServType(transServType);
                     shopBookingsList.setTransWeight(transWeight);
                     shopBookingsList.setTransDateTime(transDateTime);
@@ -206,11 +202,7 @@ public class ShopBookings extends Fragment {
                                     shopBookingsList.setId(id);
                                     shopBookingsList.setName(name);
                                     shopBookingsList.setTransServ1(transServ);
-                                    shopBookingsList.setTransServ2(transServ);
-                                    shopBookingsList.setTransServ3(transServ);
                                     shopBookingsList.setTransExtra1(transExt);
-                                    shopBookingsList.setTransExtra2(transExt);
-                                    shopBookingsList.setTransExtra3(transExt);
                                     shopBookingsList.setTransServType(transServType);
                                     shopBookingsList.setTransWeight(transWeight);
                                     shopBookingsList.setTransDateTime(transDateTime);
