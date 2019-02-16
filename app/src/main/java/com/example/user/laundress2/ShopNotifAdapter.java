@@ -43,9 +43,6 @@ public class ShopNotifAdapter extends BaseAdapter {
         convertView = layoutInflater.inflate(R.layout.shop_notification_adapter, parent, false);
         itemHolder.name = (TextView) convertView.findViewById(R.id.name);
         itemHolder.status = (TextView) convertView.findViewById(R.id.status);
-        itemHolder.ratingCustService = convertView.findViewById(R.id.rateCustService);
-        itemHolder.ratingQualityService = convertView.findViewById(R.id.rateQualService);
-        itemHolder.ratingOntime = convertView.findViewById(R.id.rateOntime);
         itemHolder.ratingOverall = convertView.findViewById(R.id.rateOverall);
         //final ClientPostList clientPostList=clientPostLists.get(position);
         //}
@@ -56,15 +53,13 @@ public class ShopNotifAdapter extends BaseAdapter {
             itemHolder.status.setText("Requested your service.");
         }else if(message.equals("Missed")){
             itemHolder.status.setText("You Missed the Service.");
+        }else if(message.equals("Accepted by lsp")){
+            itemHolder.status.setText("You have accepted the service.");
+        }else if(message.equals("Declined by lsp")){
+            itemHolder.status.setText("You have accepted the service.");
         }else if(message.equals("Finished")){
             itemHolder.name.setText(shopNotificationLists.get(position).getClientName());
             itemHolder.status.setText(shopNotificationLists.get(position).getClientName()+" has rated you");
-            itemHolder.ratingCustService.setVisibility(View.VISIBLE);
-            itemHolder.ratingCustService.setRating(shopNotificationLists.get(position).getRatingCustService());
-            itemHolder.ratingQualityService.setVisibility(View.VISIBLE);
-            itemHolder.ratingQualityService.setRating(shopNotificationLists.get(position).getRatingQualityService());
-            itemHolder.ratingOntime.setVisibility(View.VISIBLE);
-            itemHolder.ratingOntime.setRating(shopNotificationLists.get(position).getRatingOntime());
             itemHolder.ratingOverall.setVisibility(View.VISIBLE);
             itemHolder.ratingOverall.setRating(shopNotificationLists.get(position).getRatingOverall());
         }
@@ -75,9 +70,6 @@ public class ShopNotifAdapter extends BaseAdapter {
 
     private class ItemHolder {
         TextView name, status;
-        RatingBar ratingCustService;
-        RatingBar ratingQualityService;
-        RatingBar ratingOntime;
         RatingBar ratingOverall;
     }
 }

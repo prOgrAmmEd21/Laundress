@@ -29,7 +29,7 @@ import java.util.Map;
 public class ShopNotification extends AppCompatActivity {
     ArrayList<ShopNotificationList> shopNotificationLists = new ArrayList<>();
     ShopNotifAdapter shopNotifAdapter;
-    private static final String URL_ALL ="http://192.168.254.102/laundress/shop_notification.php";
+    private static final String URL_ALL ="http://192.168.137.1/laundress/shop_notification.php";
     ListView lvnotif;
     String shop_name, client_name;
     String notification_Message;
@@ -84,7 +84,7 @@ public class ShopNotification extends AppCompatActivity {
                                     int trans_No= Integer.parseInt(jsonArray.getJSONObject(i).getString("trans_No"));
                                     client_name = jsonArray.getJSONObject(i).getString("client_Name");
                                     String table = jsonArray.getJSONObject(i).getString("fromtable");
-                                    if(notification_Message.equals("Pending") || notification_Message.equals("Missed") || notification_Message.equals("Finished")){
+                                    if(notification_Message.equals("Pending") || notification_Message.equals("Missed") || notification_Message.equals("Accepted by lsp") || notification_Message.equals("Declined by lsp") || notification_Message.equals("Finished")){
 
                                         ShopNotificationList shopNotificationList = new ShopNotificationList();
                                         shopNotificationList.setClientID(client_ID);
@@ -126,7 +126,7 @@ public class ShopNotification extends AppCompatActivity {
                                                     intent.putExtras(extras);
                                                     startActivity(intent);
                                                 }
-                                                Toast.makeText(ShopNotification.this, "sud " +position+"Message "+shopNotificationLists.get(position).getMessage(), Toast.LENGTH_SHORT).show();
+                                               // Toast.makeText(ShopNotification.this, "sud " +position+"Message "+shopNotificationLists.get(position).getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                         //}

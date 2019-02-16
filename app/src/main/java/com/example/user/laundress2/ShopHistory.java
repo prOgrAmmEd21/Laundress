@@ -30,7 +30,7 @@ public class ShopHistory extends AppCompatActivity {
     ShopHistoryAdapter shopHistoryAdapter;
     ArrayList<ShopHistoryList> shopHistoryLists = new ArrayList<>();
     private Context context;
-    private static final String URL_ALL ="http://192.168.254.102/laundress/shop_history.php";
+    private static final String URL_ALL ="http://192.168.137.1/laundress/shop_history.php";
     String shop_name;
     int shop_id;
 
@@ -77,16 +77,18 @@ public class ShopHistory extends AppCompatActivity {
                             if (success.equals("1")){
                                 for (int i =0;i<jsonArray2.length();i++)
                                 {
-                                    String name=jsonArray2.getJSONObject(i).getString("client_Name").toString();
-                                    String date=jsonArray2.getJSONObject(i).getString("trans_Date").toString();
-                                    String weight=jsonArray2.getJSONObject(i).getString("trans_EstWeight").toString();
+                                    String name=jsonArray2.getJSONObject(i).getString("name").toString();
+                                    String date=jsonArray2.getJSONObject(i).getString("date").toString();
+                                    String weight=jsonArray2.getJSONObject(i).getString("weight").toString();
                                     float rating_Score= Float.parseFloat(jsonArray2.getJSONObject(i).getString("rating_Score").toString());
+                                    int trans_No= Integer.parseInt(jsonArray2.getJSONObject(i).getString("trans_No").toString());
 
                                     ShopHistoryList shopHistoryList = new ShopHistoryList();
                                     shopHistoryList.setName(name);
                                     shopHistoryList.setDate(date);
                                     shopHistoryList.setLaundryweight(weight);
                                     shopHistoryList.setRatings(rating_Score);
+                                    shopHistoryList.setTrans_No(trans_No);
                                     shopHistoryLists.add(shopHistoryList);
                                 }
                                 shopHistoryAdapter = new ShopHistoryAdapter(ShopHistory.this, shopHistoryLists);

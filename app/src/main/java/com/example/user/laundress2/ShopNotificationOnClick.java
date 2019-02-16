@@ -29,14 +29,14 @@ import java.util.Map;
 public class ShopNotificationOnClick extends AppCompatActivity {
     TextView status, name, extraservice, servicereq, servicetype, weight;
     EditText estdatetime;
-    String client_name,notif_message;
+    String client_name,notif_message, notifNo;
     Button accept, decline, btnviewdet;
     int trans_no, client_id;
     String shop_name;
     int shop_id, handwasher_lspid;
-    private static final String URL_ALL ="http://192.168.254.102/laundress/shop_transactiondetailsnotif.php";
-    private static final String URL_ALL_UPDATE ="http://192.168.254.102/laundress/shop_transactionaccept.php";
-    private static final String URL_ALL_UPDATE_DECLINE ="http://192.168.254.102/laundress/shop_transactiondescline.php";
+    private static final String URL_ALL ="http://192.168.137.1/laundress/shop_transactiondetailsnotif.php";
+    private static final String URL_ALL_UPDATE ="http://192.168.137.1/laundress/shop_transactionaccept.php";
+    private static final String URL_ALL_UPDATE_DECLINE ="http://192.168.137.1/laundress/shop_transactiondescline.php";
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -60,7 +60,6 @@ public class ShopNotificationOnClick extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.shop_laundry_details);
-        status = findViewById(R.id.status);
         name = findViewById(R.id.name);
         extraservice = findViewById(R.id.extraservice);
         servicereq = findViewById(R.id.servicereq);
@@ -125,7 +124,7 @@ public class ShopNotificationOnClick extends AppCompatActivity {
                                 Bundle extras = new Bundle();
                                 extras.putString("name",shop_name);
                                 extras.putInt("id", shop_id);
-                                Intent intent = new Intent(ShopNotificationOnClick.this, HandwasherHomepage.class);
+                                Intent intent = new Intent(ShopNotificationOnClick.this, ShopHomepage.class);
                                 intent.putExtras(extras);
                                 startActivity(intent);
                                 Toast.makeText(ShopNotificationOnClick.this, "Request Declined", Toast.LENGTH_SHORT).show();
@@ -149,6 +148,8 @@ public class ShopNotificationOnClick extends AppCompatActivity {
                 Map<String,String> params = new HashMap<>();
                 params.put("transNo", String.valueOf(trans_no));
                 params.put("clientID", String.valueOf(client_id));
+                params.put("shopID", String.valueOf(shop_id));
+                params.put("notifNo", notifNo);
                 return params;
             }
         };
@@ -170,7 +171,7 @@ public class ShopNotificationOnClick extends AppCompatActivity {
                                 extras.putString("name",shop_name);
                                 extras.putInt("id", shop_id);
                                 extras.putInt("lspid", handwasher_lspid);
-                                Intent intent = new Intent(ShopNotificationOnClick.this, HandwasherHomepage.class);
+                                Intent intent = new Intent(ShopNotificationOnClick.this, ShopHomepage.class);
                                 intent.putExtras(extras);
                                 startActivity(intent);
                                 Toast.makeText(ShopNotificationOnClick.this, "Request Accepted", Toast.LENGTH_SHORT).show();
@@ -194,6 +195,8 @@ public class ShopNotificationOnClick extends AppCompatActivity {
                 Map<String,String> params = new HashMap<>();
                 params.put("transNo", String.valueOf(trans_no));
                 params.put("clientID", String.valueOf(client_id));
+                params.put("shopID", String.valueOf(shop_id));
+                params.put("notifNo", notifNo);
                 return params;
             }
         };
@@ -210,9 +213,7 @@ public class ShopNotificationOnClick extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
-                            //JSONArray jArray = json.getJSONArray("platform");
-                            //JSONArray jsonArray = new JSONArray(response);
-                            JSONArray jsonArray = jsonObject.getJSONArray("shopNotification");
+                            JSONArray jsonArray = jsonObject.getJSONArray("shopNotificationDet");
                             if (success.equals("1")){
                                 for (int i =0;i<jsonArray.length();i++)
                                 {
@@ -221,22 +222,19 @@ public class ShopNotificationOnClick extends AppCompatActivity {
                                     String trans_ServiceType=jsonArray.getJSONObject(i).getString("trans_ServiceType").toString();
                                     String trans_EstWeight=jsonArray.getJSONObject(i).getString("trans_EstWeight").toString();
                                     String trans_EstDateTime=jsonArray.getJSONObject(i).getString("trans_EstDateTime").toString();
-                                    String trans_Status=jsonArray.getJSONObject(i).getString("trans_Status").toString();
-                                    if(trans_Status.equals("Pending")){
-                                        status.setText("Request your service.");
-                                    }
+                                    notifNo =jsonArray.getJSONObject(i).getString("notification_No");
+
                                     extraservice.setText(trans_ExtService);
                                     servicereq.setText(trans_Service);
                                     servicetype.setText(trans_ServiceType);
                                     weight.setText(trans_EstWeight);
                                     estdatetime.setText(trans_EstDateTime);
                                     estdatetime.setEnabled(false);
-
                                 }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(ShopNotificationOnClick.this, "failedddd" +e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ShopNotificationOnClick.this, "failed here" +e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },

@@ -32,7 +32,7 @@ public class ShopRateClient extends AppCompatActivity {
     int clientID, trans_No, shop_id;
     String shop_name, comments;
     float rating;
-    private static final String URL_UPDATE ="http://192.168.254.102/laundress/shop_rateclient.php";
+    private static final String URL_UPDATE ="http://192.168.137.1/laundress/shop_rateclient.php";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

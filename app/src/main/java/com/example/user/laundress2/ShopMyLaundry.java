@@ -41,7 +41,7 @@ public class ShopMyLaundry extends Fragment {
     ArrayList<String> arrDate = new ArrayList<>();
     private Context context;
     ListView listView;
-    private static final String URL_ALL = "http://192.168.254.102/laundress/shop_mylaundry.php";
+    private static final String URL_ALL = "http://192.168.137.1/laundress/shop_mylaundry.php";
     ArrayList<ShopMyLaundryList> shopMyLaundryLists = new ArrayList<>();
     ShopMyLaundryAdapter shopMyLaundryAdapter;
     private RequestQueue requestQueue;
