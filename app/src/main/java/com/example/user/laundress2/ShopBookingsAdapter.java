@@ -42,7 +42,7 @@ public class ShopBookingsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
+
             LayoutInflater layoutInflater = ((Activity) context).getLayoutInflater();
             itemHolder = new ItemHolder();
             convertView = layoutInflater.inflate(R.layout.shop_bookings_adpater, parent, false);
@@ -59,8 +59,8 @@ public class ShopBookingsAdapter extends BaseAdapter {
             itemHolder.viewLaundry.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, ChooseLaundryShop.class);
-                    intent.putExtra("name", shopBookingsList.getName());
+                    Intent intent = new Intent(context, ShopVIewRequestDetails.class);
+                    intent.putExtra("trans_No", shopBookingsList.getTransNo());
                     context.startActivity(intent);
                 }
             });
@@ -83,8 +83,8 @@ public class ShopBookingsAdapter extends BaseAdapter {
             itemHolder.extservice1.setText(shopBookingsLists.get(position).getTransExtra1());
             itemHolder.serviceType.setText(shopBookingsLists.get(position).getTransServType());
             itemHolder.dateTime.setText(shopBookingsLists.get(position).getTransDateTime());
-            itemHolder.weight.setText(shopBookingsLists.get(position).getTransWeight());
-        }
+            itemHolder.weight.setText(" "+shopBookingsLists.get(position).getTransWeight());
+
 
         return convertView;
     }

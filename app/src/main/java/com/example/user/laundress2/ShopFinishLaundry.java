@@ -1,10 +1,16 @@
 package com.example.user.laundress2;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -18,13 +24,16 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ShopFinishLaundry extends AppCompatActivity {
     int clientID, trans_No, shop_id;
-    String shop_name;
-    private static final String URL_TRANS ="http://192.168.124.83/laundress/shop_finish_laundry.php";
+    String shop_name, cue;
+
+    ArrayList<ShopRatingList> shopRatingLists = new ArrayList<>();
+    private static final String URL_TRANS ="http://192.168.137.1/laundress/shop_finish_laundry.php";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +43,11 @@ public class ShopFinishLaundry extends AppCompatActivity {
         trans_No = extras.getInt("trans_No");
         shop_id = extras.getInt("shop_id");
         shop_name = extras.getString("shop_name");
-        updateTransStatus(trans_No, clientID);
+        cue = extras.getString("cue");
+        if(cue.equals("goUpdate"))
+            updateTransStatus(trans_No, clientID);
+        else
+            gotoIntent();
     }
 
     private void updateTransStatus(final int trans_Nos, final int clientIDs) {
@@ -53,6 +66,8 @@ public class ShopFinishLaundry extends AppCompatActivity {
                                 extras.putInt("trans_no", trans_No);
                                 extras.putInt("id", shop_id);
                                 extras.putString("name", shop_name);
+                                extras.putInt("shop_id", shop_id);
+                                extras.putString("shop_name", shop_name);
                                 extras.putString("finished", "finished");
                                 Intent intent = new Intent(ShopFinishLaundry.this, ShopHomepage.class);
                                 intent.putExtras(extras);
@@ -84,5 +99,17 @@ public class ShopFinishLaundry extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+
+    public void gotoIntent(){
+        Bundle extras = new Bundle();
+        extras.putInt("client_id", clientID);
+        extras.putInt("trans_no", trans_No);
+        extras.putInt("id", shop_id);
+        extras.putString("name", shop_name);
+        extras.putString("finished", "finished");
+        Intent intent = new Intent(ShopFinishLaundry.this, ShopRateClient.class);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 }

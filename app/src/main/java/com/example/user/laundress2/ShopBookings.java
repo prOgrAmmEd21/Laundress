@@ -41,7 +41,7 @@ public class ShopBookings extends Fragment {
     ArrayList<Integer> arrShopID = new ArrayList<>();
     private Context context;
     ListView listView;
-    private static final String URL_ALL = "http://192.168.124.83/laundress/shop_bookings.php";
+    private static final String URL_ALL = "http://192.168.137.1/laundress/shop_bookings.php";
     ArrayList<ShopBookingsList> shopBookingsLists = new ArrayList<>();
     ShopBookingsAdapter shopBookingsAdapter;
     private RequestQueue requestQueue;
@@ -61,19 +61,9 @@ public class ShopBookings extends Fragment {
         return shopBookings;
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View rootView = inflater.inflate(R.layout.shop_booking, container, false);
-        listView = rootView.findViewById(R.id.lv_booking);
-        shopBookingsAdapter = new ShopBookingsAdapter(context,shopBookingsLists);
-        listView.setAdapter(shopBookingsAdapter);
-        return rootView;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = getActivity();
 
         requestQueue = Volley.newRequestQueue(getContext());
         shop_id = getArguments().getInt("shop_id");
@@ -81,87 +71,21 @@ public class ShopBookings extends Fragment {
         client_id = getArguments().getInt("client_id");
         booking = getArguments().getString("booking");
 
+    }
+
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.shop_booking, container, false);
+        listView = rootView.findViewById(R.id.lv_booking);
+        /*shopBookingsAdapter = new ShopBookingsAdapter(context,shopBookingsLists);
+        listView.setAdapter(shopBookingsAdapter);*/
+       // bookings(shop_id, shop_name);
+        context = getActivity();
         bookings(shop_id, shop_name);
-
-        try {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ALL,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            getJsonResponse(response);
-                            System.out.println("RESPONSEesponse");
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-
-            requestQueue.add(stringRequest);
-        }
-        catch (Exception e)
-        {
-
-        }
-
+        return rootView;
     }
 
-    private void getJsonResponse(String response)
-    {
-        try {
-            JSONObject jsonObject = new JSONObject(response);
-            String success = jsonObject.getString("success");
-            JSONArray jsonArray = jsonObject.getJSONArray("shopBookings");
-            if (success.equals("1")){
-                for (int i =0;i<jsonArray.length();i++)
-                {
-                    int shopID = jsonArray.getJSONObject(i).getInt("shop_id");
-                    String shopName = jsonArray.getJSONObject(i).getString("shop_name");
-                    int id = jsonArray.getJSONObject(i).getInt("clientID");
-                    String name = jsonArray.getJSONObject(i).getString("clientName");
-                    String transServ = jsonArray.getJSONObject(i).getString("transService");
-                    String transExt = jsonArray.getJSONObject(i).getString("transExtra");
-                    String transServType = jsonArray.getJSONObject(i).getString("transServType");
-                    String transWeight = jsonArray.getJSONObject(i).getString("transWeight");
-                    String transDateTime = jsonArray.getJSONObject(i).getString("transDateTime");
-                    String transStat = jsonArray.getJSONObject(i).getString("transStat");
-                    int transNo = jsonArray.getJSONObject(i).getInt("transNo");
-                    arrID.add(id);
-                    arrName.add(name);
-                    arrReqService.add(transServ);
-                    arrExtService.add(transExt);
-                    arrServiceType.add(transServType);
-                    arrWeight.add(transWeight);
-                    arrDateTime.add(transDateTime);
-                    arrStatus.add(transStat);
-                    arrTransNo.add(transNo);
-                    arrShopID.add(shopID);
-                    arrShopName.add(shopName);
-                    ShopBookingsList shopBookingsList = new ShopBookingsList();
-                    shopBookingsList.setTransNo(transNo);
-                    shopBookingsList.setId(id);
-                    shopBookingsList.setName(name);
-                    shopBookingsList.setTransNo(transNo);
-                    shopBookingsList.setTransServ1(transServ);
-                    shopBookingsList.setTransExtra1(transExt);
-                    shopBookingsList.setTransServType(transServType);
-                    shopBookingsList.setTransWeight(transWeight);
-                    shopBookingsList.setTransDateTime(transDateTime);
-                    shopBookingsList.setTransStat(transStat);
-                    shopBookingsLists.add(shopBookingsList);
-                }
-                shopBookingsAdapter.notifyDataSetChanged();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(getActivity(), "failedddd" +e.toString(), Toast.LENGTH_SHORT).show();
-        }
-    }
     private void bookings(final int shop_id, final String shop_name){
-
-        //final Context context = this;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ALL,
                 new Response.Listener<String>() {
                     @Override
@@ -171,10 +95,9 @@ public class ShopBookings extends Fragment {
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("shopBookings");
                             if (success.equals("1")){
-                                for (int i =0;i<jsonArray.length();i++)
+                                for (int i =0;i<jsonArray.length(); i++)
                                 {
                                     int shopID = jsonArray.getJSONObject(i).getInt("shop_id");
-                                    String shopName = jsonArray.getJSONObject(i).getString("shop_name");
                                     int id = jsonArray.getJSONObject(i).getInt("clientID");
                                     String name = jsonArray.getJSONObject(i).getString("clientName");
                                     String transServ = jsonArray.getJSONObject(i).getString("transService");
@@ -194,10 +117,9 @@ public class ShopBookings extends Fragment {
                                     arrStatus.add(transStat);
                                     arrTransNo.add(transNo);
                                     arrShopID.add(shopID);
-                                    arrShopName.add(shopName);
                                     ShopBookingsList shopBookingsList = new ShopBookingsList();
                                     shopBookingsList.setShopID(shopID);
-                                    shopBookingsList.setShopName(shopName);
+                                    shopBookingsList.setShopName(shop_name);
                                     shopBookingsList.setTransNo(transNo);
                                     shopBookingsList.setId(id);
                                     shopBookingsList.setName(name);
@@ -209,18 +131,20 @@ public class ShopBookings extends Fragment {
                                     shopBookingsList.setTransStat(transStat);
                                     shopBookingsLists.add(shopBookingsList);
                                 }
+                                shopBookingsAdapter = new ShopBookingsAdapter(context,shopBookingsLists);
+                                listView.setAdapter(shopBookingsAdapter);
                                 shopBookingsAdapter.notifyDataSetChanged();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getActivity(), "failedd" +e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "failed Bookings 2 " +e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "failedBookings", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "failedBookings 3", Toast.LENGTH_SHORT).show();
                     }
                 }
         )

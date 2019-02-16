@@ -38,9 +38,10 @@ public class ShopMyLaundry extends Fragment {
     ArrayList<Integer> arrClientID = new ArrayList<>();
     ArrayList<String> arrContact = new ArrayList<>();
     ArrayList<String> arrAddress = new ArrayList<>();
+    ArrayList<String> arrDate = new ArrayList<>();
     private Context context;
     ListView listView;
-    private static final String URL_ALL = "http://192.168.124.83/laundress/shop_mylaundry.php";
+    private static final String URL_ALL = "http://192.168.137.1/laundress/shop_mylaundry.php";
     ArrayList<ShopMyLaundryList> shopMyLaundryLists = new ArrayList<>();
     ShopMyLaundryAdapter shopMyLaundryAdapter;
     private RequestQueue requestQueue;
@@ -83,7 +84,7 @@ public class ShopMyLaundry extends Fragment {
         shop(shop_id, shop_name);
     }
 
-    private void shop(final int shop_id, final String client_id){
+    private void shop(final int shop_id, final String shop_name){
 
         //final Context context = this;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ALL,
@@ -102,6 +103,7 @@ public class ShopMyLaundry extends Fragment {
                                     String name = jsonArray.getJSONObject(i).getString("clientName");
                                     String address = jsonArray.getJSONObject(i).getString("clientAddress");
                                     String contact = jsonArray.getJSONObject(i).getString("clientContact");
+                                    String date = jsonArray.getJSONObject(i).getString("transDate");
                                     arrClientID.add(clientID);
                                     arrTransNo.add(transNo);
                                     arrName.add(name);
@@ -109,6 +111,7 @@ public class ShopMyLaundry extends Fragment {
                                     arrShopName.add(shop_name);
                                     arrAddress.add(address);
                                     arrContact.add(contact);
+                                    arrDate.add(date);
                                     ShopMyLaundryList shopMyLaundryList = new ShopMyLaundryList();
                                     shopMyLaundryList.setShopID(shop_id);
                                     shopMyLaundryList.setShopName(shop_name);
@@ -117,6 +120,7 @@ public class ShopMyLaundry extends Fragment {
                                     shopMyLaundryList.setName(name);
                                     shopMyLaundryList.setAddress(address);
                                     shopMyLaundryList.setContact(contact);
+                                    shopMyLaundryList.setDate(date);
                                     shopMyLaundryLists.add(shopMyLaundryList);
                                 }
                                 shopMyLaundryAdapter.notifyDataSetChanged();

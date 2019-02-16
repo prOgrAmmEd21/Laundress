@@ -115,7 +115,7 @@
             android:name=".ShopVIewRequestDetails"
             android:label="View Laundry Details"/>
         <activity
-            android:name=".ShopNotificationOnClick"
+            android:name=".ShopRateClient"
             android:label="Laundry Details"/>
 
 

@@ -47,8 +47,8 @@ public class ShopRate extends AppCompatActivity {
     float rating;
     ShopRateAdapter shopRateAdapter;
     ArrayList<ShopRatingList> shopRatingLists = new ArrayList<>();
-    private static final String URL_ALL ="http://192.168.124.83/laundress/shop_ratings.php";
-    private static final String URL_UPDATE ="http://192.168.124.83/laundress/shop_update_ratings.php";
+    private static final String URL_ALL ="http://192.168.137.1/laundress/shop_ratings.php";
+    private static final String URL_UPDATE ="http://192.168.137.1/laundress/shop_update_ratings.php";
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

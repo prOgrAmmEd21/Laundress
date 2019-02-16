@@ -8,12 +8,47 @@ public class ShopNotificationList {
     private int transNo;
     private int notiNo;
     private String message;
-    private float rate;
+    private float ratingCustService;
+    private float ratingQualityService;
+    private float ratingOntime;
+    private float ratingOverall;
     private int rateNo;
     private String dateRate;
     private String comment;
     private String table;
     int lspID;
+
+    public float getRatingCustService() {
+        return ratingCustService;
+    }
+
+    public void setRatingCustService(float ratingCustService) {
+        this.ratingCustService = ratingCustService;
+    }
+
+    public float getRatingQualityService() {
+        return ratingQualityService;
+    }
+
+    public void setRatingQualityService(float ratingQualityService) {
+        this.ratingQualityService = ratingQualityService;
+    }
+
+    public float getRatingOntime() {
+        return ratingOntime;
+    }
+
+    public void setRatingOntime(float ratingOntime) {
+        this.ratingOntime = ratingOntime;
+    }
+
+    public float getRatingOverall() {
+        return ratingOverall;
+    }
+
+    public void setRatingOverall(float ratingOverall) {
+        this.ratingOverall = ratingOverall;
+    }
 
     public int getLspID() {
         return lspID;
@@ -77,14 +112,6 @@ public class ShopNotificationList {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public float getRate() {
-        return rate;
-    }
-
-    public void setRate(float rate) {
-        this.rate = rate;
     }
 
     public int getRateNo() {

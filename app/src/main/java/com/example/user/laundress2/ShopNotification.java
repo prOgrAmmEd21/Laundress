@@ -29,13 +29,13 @@ import java.util.Map;
 public class ShopNotification extends AppCompatActivity {
     ArrayList<ShopNotificationList> shopNotificationLists = new ArrayList<>();
     ShopNotifAdapter shopNotifAdapter;
-    private static final String URL_ALL ="http://192.168.124.83/laundress/shop_notification.php";
+    private static final String URL_ALL ="http://192.168.137.1/laundress/shop_notification.php";
     ListView lvnotif;
     String shop_name, client_name;
     String notification_Message;
     int shop_id, handwasher_lspid, rate_NO;
     String rating_Date, rating_Comment, comments;
-    float rating_Score;
+    float rating_Cust_Service, rating_QualityService, rating_Overall, rating_Ontime;
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
@@ -90,12 +90,18 @@ public class ShopNotification extends AppCompatActivity {
                                         shopNotificationList.setClientID(client_ID);
                                         shopNotificationList.setLspID(lsp_ID);
                                         if(notification_Message.equals("Finished")){
-                                            rating_Score = Float.parseFloat(jsonArray.getJSONObject(i).getString("rating_Score"));
+                                            rating_Cust_Service = Float.parseFloat(jsonArray.getJSONObject(i).getString("rating_Cust_Service"));
+                                            rating_QualityService = Float.parseFloat(jsonArray.getJSONObject(i).getString("rating_QualityService"));
+                                            rating_Ontime = Float.parseFloat(jsonArray.getJSONObject(i).getString("rating_Ontime"));
+                                            rating_Overall = Float.parseFloat(jsonArray.getJSONObject(i).getString("rating_Overall"));
                                             rating_Comment = jsonArray.getJSONObject(i).getString("rating_Comment");
                                             rating_Date = jsonArray.getJSONObject(i).getString("rating_Date");
                                             rate_NO = Integer.parseInt(jsonArray.getJSONObject(i).getString("rating_No"));
 
-                                            shopNotificationList.setRate(rating_Score);
+                                            shopNotificationList.setRatingCustService(rating_Cust_Service);
+                                            shopNotificationList.setRatingQualityService(rating_QualityService);
+                                            shopNotificationList.setRatingOntime(rating_Ontime);
+                                            shopNotificationList.setRatingOverall(rating_Overall);
                                             shopNotificationList.setComment(rating_Comment);
                                             shopNotificationList.setDateRate(rating_Date);
                                             shopNotificationList.setRateNo(rate_NO);

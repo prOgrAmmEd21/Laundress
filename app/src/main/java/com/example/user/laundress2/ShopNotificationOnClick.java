@@ -34,9 +34,9 @@ public class ShopNotificationOnClick extends AppCompatActivity {
     int trans_no, client_id;
     String shop_name;
     int shop_id, handwasher_lspid;
-    private static final String URL_ALL ="http://192.168.124.83/laundress/alltrans.php";
-    private static final String URL_ALL_UPDATE ="http://192.168.124.83/laundress/updatetrans.php";
-    private static final String URL_ALL_UPDATE_DECLINE ="http://192.168.124.83/laundress/updatetransdecline.php";
+    private static final String URL_ALL ="http://192.168.137.1/laundress/shop_transactiondetailsnotif.php";
+    private static final String URL_ALL_UPDATE ="http://192.168.137.1/laundress/shop_transactionaccept.php";
+    private static final String URL_ALL_UPDATE_DECLINE ="http://192.168.137.1/laundress/shop_transactiondescline.php";
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -79,7 +79,6 @@ public class ShopNotificationOnClick extends AppCompatActivity {
         client_id = extras.getInt("client_id");
         shop_name = extras.getString("shop_name");
         shop_id = extras.getInt("shop_id");
-        handwasher_lspid = extras.getInt("handwasher_lspid");
         name.setText(client_name);
         if(notif_message.equals("Missed")){
             accept.setVisibility(View.GONE);
@@ -103,9 +102,9 @@ public class ShopNotificationOnClick extends AppCompatActivity {
             public void onClick(View v) {
                 Bundle extras = new Bundle();
                 extras.putString("shop_name", shop_name);
-                extras.putInt("trans_No", trans_no);
-                extras.putInt("shop_id", shop_id);
-                extras.putInt("handwasher_id", handwasher_lspid);
+                extras.putInt("transNo", trans_no);
+                extras.putInt("shopID", shop_id);
+                extras.putInt("clientID", client_id);
                 Intent intent = new Intent(ShopNotificationOnClick.this, ShopViewLaundryDetails.class);
                 intent.putExtras(extras);
                 startActivity(intent);
@@ -129,7 +128,7 @@ public class ShopNotificationOnClick extends AppCompatActivity {
                                 Intent intent = new Intent(ShopNotificationOnClick.this, HandwasherHomepage.class);
                                 intent.putExtras(extras);
                                 startActivity(intent);
-                                Toast.makeText(ShopNotificationOnClick.this, "Laundry Client Declined", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ShopNotificationOnClick.this, "Request Declined", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -148,7 +147,8 @@ public class ShopNotificationOnClick extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
-                params.put("trans_no", String.valueOf(trans_no));
+                params.put("transNo", String.valueOf(trans_no));
+                params.put("clientID", String.valueOf(client_id));
                 return params;
             }
         };
@@ -173,7 +173,7 @@ public class ShopNotificationOnClick extends AppCompatActivity {
                                 Intent intent = new Intent(ShopNotificationOnClick.this, HandwasherHomepage.class);
                                 intent.putExtras(extras);
                                 startActivity(intent);
-                                Toast.makeText(ShopNotificationOnClick.this, "Laundry Client Accepted", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ShopNotificationOnClick.this, "Request Accepted", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -192,7 +192,8 @@ public class ShopNotificationOnClick extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
-                params.put("trans_no", String.valueOf(trans_no));
+                params.put("transNo", String.valueOf(trans_no));
+                params.put("clientID", String.valueOf(client_id));
                 return params;
             }
         };
@@ -211,7 +212,7 @@ public class ShopNotificationOnClick extends AppCompatActivity {
                             String success = jsonObject.getString("success");
                             //JSONArray jArray = json.getJSONArray("platform");
                             //JSONArray jsonArray = new JSONArray(response);
-                            JSONArray jsonArray = jsonObject.getJSONArray("allnotif");
+                            JSONArray jsonArray = jsonObject.getJSONArray("shopNotification");
                             if (success.equals("1")){
                                 for (int i =0;i<jsonArray.length();i++)
                                 {
@@ -250,7 +251,7 @@ public class ShopNotificationOnClick extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
-                params.put("trans_no", String.valueOf(trans_no));
+                params.put("transNo", String.valueOf(trans_no));
                 return params;
             }
         };

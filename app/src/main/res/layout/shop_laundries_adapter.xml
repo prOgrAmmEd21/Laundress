@@ -19,24 +19,15 @@
 
             <TextView
                 android:id="@+id/label1"
-                android:layout_width="95dp"
+                android:layout_width="1dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="8dp"
-                android:text="Time left 'til deadline:"
+                android:text="Deadline"
                 android:textColor="@color/gray" />
 
             <TextView
-                android:id="@+id/tv_timedeadline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="-80dp"
-                android:layout_weight="1"
-                android:text="TextView"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/label2"
+                android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

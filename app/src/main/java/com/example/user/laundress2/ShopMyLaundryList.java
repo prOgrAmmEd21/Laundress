@@ -9,6 +9,15 @@ public class ShopMyLaundryList {
     private int shopID;
     private int transNo;
     private int lspID;
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getShopName() {
         return shopName;

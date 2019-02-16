@@ -59,7 +59,6 @@ public class ShopHomepage extends AppCompatActivity implements NavigationView.On
         Bundle extras = intent.getExtras();
         name = extras.getString("name");
         shop_id = extras.getInt("id");
-
     }
     @Override
     public void onBackPressed() {
@@ -122,7 +121,7 @@ public class ShopHomepage extends AppCompatActivity implements NavigationView.On
             intent.putExtras(extras);
             startActivity(intent);
         } else if (id == R.id.logout) {
-            Intent intent = new Intent(ShopHomepage.this, ShopLogout.class);
+            Intent intent = new Intent(ShopHomepage.this, MainActivity.class);
             startActivity(intent);
         }
 
