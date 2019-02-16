@@ -46,10 +46,13 @@ public class ShopRateAdapter extends BaseAdapter {
             itemHolder.rating = convertView.findViewById(R.id.ratings);
             itemHolder.comment = (TextView) convertView.findViewById(R.id.tv_comment);
             itemHolder.date = (TextView) convertView.findViewById(R.id.tv_date);
+            itemHolder.rateVal = (TextView) convertView.findViewById(R.id.rateval);
             itemHolder.clientName.setText(shopRatingLists.get(position).getClientName());
             itemHolder.comment.setText(shopRatingLists.get(position).getComment());
             itemHolder.date.setText(shopRatingLists.get(position).getDate());
             itemHolder.rating.setRating(shopRatingLists.get(position).getRate());
+            //String rateValue = String.valueOf(shopRatingLists.get(position).getRate());
+            //itemHolder.rateVal.setText(rateValue);
         }
 
         return convertView;
@@ -60,5 +63,6 @@ public class ShopRateAdapter extends BaseAdapter {
         RatingBar rating;
         TextView comment;
         TextView date;
+        TextView rateVal;
     }
 }

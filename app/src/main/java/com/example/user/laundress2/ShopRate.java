@@ -39,16 +39,17 @@ import java.util.Map;
 public class ShopRate extends AppCompatActivity {
     ImageView picture;
     TextView rateval;
-    RatingBar ratings;
+    RatingBar ratingS;
     ListView allratings;
     String client_name, comments;
     int client_id;
     int pos, rate_no;
     float rating;
+    float avg_rating;
     ShopRateAdapter shopRateAdapter;
     ArrayList<ShopRatingList> shopRatingLists = new ArrayList<>();
-    private static final String URL_ALL ="http://192.168.137.1/laundress/shop_ratings.php";
-    private static final String URL_UPDATE ="http://192.168.137.1/laundress/shop_update_ratings.php";
+    private static final String URL_ALL ="http://192.168.254.102/laundress/shop_ratings.php";
+    private static final String URL_UPDATE ="http://192.168.254.102/laundress/shop_update_ratings.php";
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -72,7 +73,7 @@ public class ShopRate extends AppCompatActivity {
         setContentView(R.layout.shop_rate);
         picture = findViewById(R.id.photo);
         rateval = findViewById(R.id.rateval);
-        ratings = findViewById(R.id.ratings);
+        ratingS = findViewById(R.id.ratings);
         allratings = findViewById(R.id.lv_rate);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -108,17 +109,23 @@ public class ShopRate extends AppCompatActivity {
 
                                     int rating_No = Integer.parseInt(object.getString("rating_No"));
                                     float rating_Score = Float.parseFloat(object.getString("rating_Score"));
+                                    avg_rating = Float.parseFloat(object.getString("avgRate"));
+                                    //Toast.makeText(ShopRate.this, "rate "+rating_Score, Toast.LENGTH_SHORT).show();
                                     String rating_Comment = object.getString("rating_Comment");
                                     String rating_Date= object.getString("rating_Date");
                                     String name = object.getString("client_Name");
                                     ShopRatingList shopRatingList = new ShopRatingList();
                                     shopRatingList.setRate_no(rating_No);
                                     shopRatingList.setRate(rating_Score);
+                                    shopRatingList.setAvgRate(avg_rating);
                                     shopRatingList.setComment(rating_Comment);
                                     shopRatingList.setDate(rating_Date);
                                     shopRatingList.setClientName(name);
                                     shopRatingLists.add(shopRatingList);
                                 }
+                                ratingS.setRating(avg_rating);
+                                String ave = String.valueOf(avg_rating);
+                                rateval.setText(ave);
                                 shopRateAdapter = new ShopRateAdapter(ShopRate.this,shopRatingLists);
                                 allratings.setAdapter(shopRateAdapter);
                                 //Toast.makeText(ClientRate.this, "trans_Status " + trans_Status, Toast.LENGTH_SHORT).show();

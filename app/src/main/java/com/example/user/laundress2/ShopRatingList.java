@@ -3,9 +3,18 @@ package com.example.user.laundress2;
 public class ShopRatingList {
     private int rate_no;
     private float rate;
+    private float avgRate;
     private String comment;
     private String date;
     private String clientName;
+
+    public float getAvgRate() {
+        return avgRate;
+    }
+
+    public void setAvgRate(float avgRate) {
+        this.avgRate = avgRate;
+    }
 
     public int getRate_no() {
         return rate_no;
