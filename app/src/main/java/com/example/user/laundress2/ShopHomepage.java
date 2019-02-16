@@ -106,11 +106,11 @@ public class ShopHomepage extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(ShopHomepage.this, ShopRate.class);
             intent.putExtras(extras);
             startActivity(intent);
-        } else if (id == R.id.laundryservices) {
+        } else if (id == R.id.clients) {
             Bundle extras = new Bundle();
             extras.putString("shop_name",name);
             extras.putInt("shop_id", shop_id);
-            Intent intent = new Intent(ShopHomepage.this, ShopLaundryServices.class);
+            Intent intent = new Intent(ShopHomepage.this, ShopRegularClients.class);
             intent.putExtras(extras);
             startActivity(intent);
         } else if (id == R.id.history) {

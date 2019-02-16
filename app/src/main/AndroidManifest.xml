@@ -100,9 +100,6 @@
             android:name=".ShopNotification"
             android:label="Notifications"/>
         <activity
-            android:name=".ShopLaundryServices"
-            android:label="My Laundry Services"/>
-        <activity
             android:name=".ShopHistory"
             android:label="History"/>
         <activity
@@ -116,10 +113,13 @@
             android:label="View Laundry Details"/>
         <activity
             android:name=".ShopRateClient"
-            android:label="Laundry Details"/>
+            android:label="Rate Client"/>
         <activity
             android:name=".ShopNotificationOnClick"
-            android:label="Laundry Details"/>
+            android:label="Notifications"/>
+        <activity
+            android:name=".ShopRegularClients"
+            android:label="My Regular Clients"/>
 
 
 
