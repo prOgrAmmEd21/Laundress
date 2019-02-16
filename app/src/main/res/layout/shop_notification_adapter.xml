@@ -39,7 +39,31 @@
                 android:padding="5dp"
                 android:text="status name" />
             <RatingBar
-                android:id="@+id/ratings"
+                android:id="@+id/rateCustService"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:visibility="gone" />
+            <RatingBar
+                android:id="@+id/rateQualService"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:visibility="gone" />
+            <RatingBar
+                android:id="@+id/rateOntime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:visibility="gone" />
+            <RatingBar
+                android:id="@+id/rateOverall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:isIndicator="true"

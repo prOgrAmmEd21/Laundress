@@ -43,10 +43,10 @@ public class ShopNotifAdapter extends BaseAdapter {
         convertView = layoutInflater.inflate(R.layout.shop_notification_adapter, parent, false);
         itemHolder.name = (TextView) convertView.findViewById(R.id.name);
         itemHolder.status = (TextView) convertView.findViewById(R.id.status);
-        itemHolder.ratingCustService = convertView.findViewById(R.id.ratings);
-        itemHolder.ratingQualityService = convertView.findViewById(R.id.ratings);
-        itemHolder.ratingOntime = convertView.findViewById(R.id.ratings);
-        itemHolder.ratingOverall = convertView.findViewById(R.id.ratings);
+        itemHolder.ratingCustService = convertView.findViewById(R.id.rateCustService);
+        itemHolder.ratingQualityService = convertView.findViewById(R.id.rateQualService);
+        itemHolder.ratingOntime = convertView.findViewById(R.id.rateOntime);
+        itemHolder.ratingOverall = convertView.findViewById(R.id.rateOverall);
         //final ClientPostList clientPostList=clientPostLists.get(position);
         //}
         itemHolder.name.setText(shopNotificationLists.get(position).getClientName());
