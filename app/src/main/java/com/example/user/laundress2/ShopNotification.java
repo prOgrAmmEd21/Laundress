@@ -29,7 +29,7 @@ import java.util.Map;
 public class ShopNotification extends AppCompatActivity {
     ArrayList<ShopNotificationList> shopNotificationLists = new ArrayList<>();
     ShopNotifAdapter shopNotifAdapter;
-    private static final String URL_ALL ="http://192.168.137.1/laundress/shop_notification.php";
+    private static final String URL_ALL ="http://192.168.254.102/laundress/shop_notification.php";
     ListView lvnotif;
     String shop_name, client_name;
     String notification_Message;

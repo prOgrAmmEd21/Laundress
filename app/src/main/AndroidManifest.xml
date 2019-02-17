@@ -115,9 +115,6 @@
             android:name=".ShopRateClient"
             android:label="Rate Client"/>
         <activity
-            android:name=".ShopNotificationOnClick"
-            android:label="Notifications"/>
-        <activity
             android:name=".ShopRegularClients"
             android:label="My Regular Clients"/>
 

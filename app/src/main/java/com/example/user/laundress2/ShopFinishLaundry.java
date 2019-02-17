@@ -33,7 +33,7 @@ public class ShopFinishLaundry extends AppCompatActivity {
     String shop_name, cue;
 
     ArrayList<ShopRatingList> shopRatingLists = new ArrayList<>();
-    private static final String URL_TRANS ="http://192.168.137.1/laundress/shop_finish_laundry.php";
+    private static final String URL_TRANS ="http://192.168.254.102/laundress/shop_finish_laundry.php";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

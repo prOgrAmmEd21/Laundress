@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,11 +32,27 @@ public class ShopRegularClients extends AppCompatActivity {
     ArrayList<ShopRegularClientsList> shopRegularClientsLists = new ArrayList<ShopRegularClientsList>();
     private String location, name, contact;
     private int lsp_id;
-    private static final String URL_ALL_ClIENTS ="http://192.168.137.1/laundress/shop_regularclients.php";
+    private static final String URL_ALL_ClIENTS ="http://192.168.254.102/laundress/shop_regularclients.php";
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    public void onBackPressed() {
 
+        // Write your code here
+
+        super.onBackPressed();
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.shop_regular_clients);
         llclients = findViewById(R.id.llclients);
         Intent intent = getIntent();

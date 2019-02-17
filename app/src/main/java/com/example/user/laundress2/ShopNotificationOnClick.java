@@ -34,9 +34,9 @@ public class ShopNotificationOnClick extends AppCompatActivity {
     int trans_no, client_id;
     String shop_name;
     int shop_id, handwasher_lspid;
-    private static final String URL_ALL ="http://192.168.137.1/laundress/shop_transactiondetailsnotif.php";
-    private static final String URL_ALL_UPDATE ="http://192.168.137.1/laundress/shop_transactionaccept.php";
-    private static final String URL_ALL_UPDATE_DECLINE ="http://192.168.137.1/laundress/shop_transactiondescline.php";
+    private static final String URL_ALL ="http://192.168.254.102/laundress/shop_transactiondetailsnotif.php";
+    private static final String URL_ALL_UPDATE ="http://192.168.254.102/laundress/shop_transactionaccept.php";
+    private static final String URL_ALL_UPDATE_DECLINE ="http://192.168.254.102/laundress/shop_transactiondescline.php";
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
